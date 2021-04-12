@@ -1,0 +1,15 @@
+.radio__header {
+  position: relative;
+  display: block;
+  width: max-content;
+
+  &::after {
+    position: absolute;
+    display: block;
+    content: "*";
+    color: red;
+    font-size: 10px;
+    top: 3px;
+    right: -10px;
+  }
+}

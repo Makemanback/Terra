@@ -1,0 +1,14 @@
+.radio__wrapper--simple {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__radio-text--simple {
+  display: inline;
+  padding-left: 30px;
+
+  &::after {
+    top: 3px;
+    left: 0;
+  }
+}

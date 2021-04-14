@@ -1,0 +1,23 @@
+.container {
+  display: flex; 
+  max-width: 770px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container__inner {
+  width: 770px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #D9DCE0;
+  background-color: #fff;
+}
+
+.container__wrapper {
+  display: block;
+  margin-bottom: 20px;
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+}

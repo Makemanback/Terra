@@ -1,0 +1,14 @@
+.submit {
+  background: linear-gradient(180deg, #31B4E2 0%, #299DC6 100%);
+  color: white;
+  border-radius: 15px;
+
+  cursor: pointer;
+  &:disabled {
+    background: grey;
+    border-color: grey;
+    opacity: 0.7;
+
+    cursor: auto;
+  }
+}

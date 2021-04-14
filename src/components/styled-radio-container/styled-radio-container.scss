@@ -1,0 +1,80 @@
+.radio__header {
+  margin-bottom: 10px;
+}
+
+.radio__wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.form__radio-progress {
+  position: absolute;
+  display: block;
+  content: "";
+  bottom: -1px;
+  left: 68px;
+  width: 590px;
+  height: 8px;
+  border: solid 2px #299DC6;
+  background-color: white;
+}
+
+.radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+
+  &:checked ~ .form__radio-text::after {
+    background-color: #299DC6;
+  }
+}
+
+.form__radio-button {
+  &:hover {
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+.form__radio-text {
+  position: relative;
+  display: block;
+  text-align: center;
+
+  &::after {
+    position: absolute;
+    top: 25px;
+    left: 63px;
+    display: block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: #299DC6 2px solid;
+    background-color: white;
+    cursor: pointer;
+    z-index: 5;
+  }
+}
+
+.form__radio-progress--income {
+  width: 580px;
+  top: 60px;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.form__radio-text--income::after {
+  top: 53px;
+  left: 70px;
+}

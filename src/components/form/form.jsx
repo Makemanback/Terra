@@ -27,18 +27,9 @@ const Form = () => {
   const [userDirectionType, setUserDirectionType] = useState(null);
 
   const [mentorId, setMentorId] = useState(null);
-
-  
-  
-
   
   const mentors = useSelector(({LEADERS}) => LEADERS.mentors);
   
-  // if (!mentors) {
-  //   return (
-  //     <LoadingScreen />
-  //   );
-  // }
   const [activePage, setPage] = useState(
   <FirstPage 
     setUserName={setUserName}
@@ -67,9 +58,8 @@ const Form = () => {
 
   const handleNextPage = () => {
     const statusRadio = document.querySelectorAll('[name=business-type]')
-    // const allRadio = Array.from(document.querySelectorAll('[type=radio]'));
     const [start, breakthrough] = statusRadio;
-
+    
     if (activePage.type.name === 'Leaders') {
       return (
         setPage(<Final />),
@@ -82,33 +72,9 @@ const Form = () => {
     }
   }
 
-//   const startMentors = mentors.filter(({directionTypeID}) => directionTypeID === 1);
-//   const breakthroughtMentors = mentors.filter(({directionTypeID}) => directionTypeID === 2);
+  
 
-//   const startMentorsOffline = startMentors.filter(({educationTypeID}) => educationTypeID === 1);
-//   const startMentorsOnline = startMentors.filter(({educationTypeID}) => educationTypeID === 2);
 
-//   const breakthroughMentorsOffline = breakthroughtMentors.filter(({educationTypeID}) => educationTypeID === 1);
-//   const breakthroughMentorsOnline = breakthroughtMentors.filter(({educationTypeID}) => educationTypeID === 2);
-
-//   let actualMentors;
-
-//   if (userEducationType === 1 && userDirectionType === 1) {
-//     actualMentors = startMentorsOffline
-//   }
-
-//   if (userEducationType === 2 && userDirectionType === 1) {
-//     actualMentors = startMentorsOnline;
-//   }
-
-//   if (userEducationType === 1 && userDirectionType === 2) {
-//     actualMentors = breakthroughMentorsOffline;
-//   }
-
-//   if (userEducationType === 2 && userDirectionType === 2) {
-//     actualMentors = breakthroughMentorsOnline;
-//   }
-// console.log(actualMentors)
 
   const handleSubmitForm = (evt) => {
 
@@ -139,7 +105,20 @@ const Form = () => {
     <form 
       className="form container"
       onSubmit={(evt) => handleSubmitForm(evt)}>
-      {activePage}
+      {/* {activePage} */}
+      <FirstPage
+    userIncome={userIncome} 
+    setUserName={setUserName}
+    setUserSurname={setUserSurname}
+    setUserLastname={setUserLastname}
+    setUserEmail={setUserEmail}
+    setUserBusiness={setUserBusiness}
+    setUserTelegram={setUserTelegram}
+    setUserPhone={setUserPhone}
+    setUserMentoringCount={setUserMentoringCount}
+    setUserIncome={setUserIncome}
+    setUserEducationType={setUserEducationType}
+    setUserDirectionType={setUserDirectionType} />
 
       <ButtonsBlock 
         isNextDisabled={isNextDisabled} 

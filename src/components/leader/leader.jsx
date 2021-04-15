@@ -2,7 +2,7 @@ import React from 'react';
 
 import './leader.scss';
 
-const Leader = ({setLeader, setMentor, mentor}) => {
+const Leader = ({setMentor, mentor}) => {
 
   const {id, fullName, photoURL, employes} = mentor;
 
@@ -24,7 +24,7 @@ const Leader = ({setLeader, setMentor, mentor}) => {
           name="start-leader" 
           className="radio leader__radio" 
           value={fullName}
-          onClick={({target}) => setLeader(target.value)} />
+           />
         <span className="leader__name">{fullName}</span>
         {
           employes.map(({name, id}) => {

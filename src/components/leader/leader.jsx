@@ -4,8 +4,7 @@ import './leader.scss';
 
 const Leader = ({setMentor, mentor}) => {
 
-  const {id, fullName, photoURL, employes} = mentor;
-
+  const {ID, fullName, photoURL, employes} = mentor;
   return (
     <label 
     className="leader"
@@ -18,7 +17,7 @@ const Leader = ({setMentor, mentor}) => {
         height="175" />
       <div className="leader__wrapper">
         <input
-          id={id}
+          id={ID}
           onInput={({target}) => setMentor(target.id)}
           type="radio" 
           name="start-leader" 
@@ -27,8 +26,8 @@ const Leader = ({setMentor, mentor}) => {
            />
         <span className="leader__name">{fullName}</span>
         {
-          employes.map(({name, id}) => {
-            return <span key={id} className="leader__text">Ниша: {name}</span>
+          employes.map(({name, ID}) => {
+            return <span key={ID} className="leader__text">Ниша: {name}</span>
           })
         }
         

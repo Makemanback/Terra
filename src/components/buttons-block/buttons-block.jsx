@@ -4,12 +4,11 @@ import SubmitButton from '../submit-button/submit-button';
 
 import './buttons-block.scss';
 
-const ButtonsBlock = ({handleNextPage, isNextDisabled, isSubmitDisabled}) => {
-
+const ButtonsBlock = ({handleNextPage, isNextDisabled, isSubmitDisabled, isNextShowed}) => {
   return (
     <div className="container__inner next">
-      <NextButton handleNextPage={handleNextPage} isNextDisabled={isNextDisabled} />
-      <SubmitButton isSubmitDisabled={isSubmitDisabled} />
+      {isNextShowed ? <NextButton handleNextPage={handleNextPage} isNextDisabled={isNextDisabled} /> : null}
+      {isSubmitDisabled ? null : <SubmitButton isSubmitDisabled={isSubmitDisabled} />}
     </div>
   )
 };

@@ -5,6 +5,7 @@ import {repeationData, incomeData, formatData, statusData} from '../../const';
 import FormTextInput from '../form-text-input/form-text-input';
 import StyledRadioContainer from "../styled-radio-container/styled-radio-container";
 import SimpleRadioContainer from "../simple-radio-container/simple-radio-container";
+import DirectionRadioContainer from "../direction-radio-container/direction-radio-container";
 import Header from '../header/header';
 import Registration from '../registration/registration';
 import Phone from '../phone/phone';
@@ -22,7 +23,8 @@ const FirstPage = ({
   setUserIncome,
   setUserEducationType,
   setUserDirectionType,
-  userIncome}) => {
+  userIncome,
+  directionRef}) => {
 
   return (
     <>
@@ -36,10 +38,10 @@ const FirstPage = ({
       <StyledRadioContainer onRadioChange={setUserMentoringCount} title={'Сколько раз проходили наставничество в клубе Терра?'} listData={repeationData} />
       <Phone onInputChange={setUserPhone} />
       <FormTextInput onInputChange={setUserTelegram} title={'Введите Ваше имя @username в Телеграм (включая символ @)'} placeholder={'Ваш id'} type={'text'} />
-      <StyledRadioContainer onRadioChange={setUserIncome} title={'Ваш ежемесячный чистый доход от вашего проекта?'} listData={incomeData} />
+      <StyledRadioContainer onRadioChange={setUserIncome} title={'Ваш ежемесячный чистый доход от вашего проекта?'} listData={incomeData} /> 
       
       <SimpleRadioContainer onRadioChange={setUserEducationType} title={'Как вы планируете проходить наставничество?'} listData={formatData} />
-      {userIncome === 'more than 300000' ? <SimpleRadioContainer onRadioChange={setUserDirectionType} title={'Ваш статус:'} listData={statusData} /> : null}
+      {userIncome === 'more than 300000' ? <DirectionRadioContainer directionRef={directionRef} onRadioChange={setUserDirectionType} title={'Ваш статус:'} listData={statusData} /> : null}
     </>
   )
 };

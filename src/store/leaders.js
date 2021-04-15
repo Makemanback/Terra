@@ -1,10 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {startLeadersList, breakthroughLeadersList} from '../mocks/leaders';
-import {getTelegramCode, fetchMentors} from './actions';
+import {getTelegramCode, fetchMentors, fetchStudents} from './actions';
 
 const initialState = {
   code: null,
   mentors: null,
+  students: null,
 };
 
 const leaders = createReducer(initialState, (builder) => {
@@ -18,6 +18,12 @@ const leaders = createReducer(initialState, (builder) => {
     return {
       ...state,
       mentors: action.payload,
+    };
+  });
+  builder.addCase(fetchStudents, (state, action) => {
+    return {
+      ...state,
+      students: action.payload,
     };
   });
 });

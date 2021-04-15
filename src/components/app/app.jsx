@@ -5,6 +5,7 @@ import {Path} from '../../const';
 
 import Main from '../main/main';
 import MentorAuth from '../mentor-auth/mentor-auth';
+import MentorPage from '../mentor-page/mentor-page';
 
 const App = () => {
   return (
@@ -12,6 +13,10 @@ const App = () => {
     <Route exact path={Path.DEFAULT}>
       <Main />
       {/* <MentorAuth /> */}
+      
+    </Route>
+    <Route exact path={'/mentor'}>
+      <MentorPage />
     </Route>
   </Switch>
   );

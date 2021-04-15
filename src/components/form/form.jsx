@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -13,6 +13,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 const Form = () => {
 
   const dispatch = useDispatch();
+  const directionRef = useRef();
 
   const [userName, setUserName] = useState('');
   const [userSurname, setUserSurname] = useState('');
@@ -31,6 +32,7 @@ const Form = () => {
   const mentors = useSelector(({LEADERS}) => LEADERS.mentors);
   
   const firstPage = <FirstPage
+  directionRef={directionRef}
   userIncome={userIncome} 
   setUserName={setUserName}
   setUserSurname={setUserSurname}
@@ -47,6 +49,7 @@ const Form = () => {
   const [activePage, setPage] = useState(firstPage)
 
   const [isNextDisabled, setNextButton] = useState(false);
+  const [isNextShowed, setNextShow] = useState(true);
   const [isSubmitDisabled, setSubmitButton] = useState(true);
   const [mentorsList, setMentorsList] = useState(null);
 
@@ -56,11 +59,44 @@ const Form = () => {
       .get('http://94.130.230.165:8079/user/fetch_lists_with_mentors')
       .then(({data}) => dispatch(fetchMentors(data.mentors)))
     }
-
-    setPage(firstPage)
-  }, [userIncome]);
+  }, []);
   
   useEffect(() => {
+    setPage(firstPage)
+    setNextButton(true);
+    
+    if (userDirectionType && userIncome
+      && userEducationType) {
+        // userName 
+        // && userSurname 
+        // && userLastname 
+        // && userEmail 
+        // && userBusiness 
+        // && userMentoringCount 
+        // && userPhone
+        // && userTelegram
+        // && 
+         
+        setNextButton(false);
+      
+    }
+
+    if (
+      // userName 
+      // && userSurname 
+      // && userLastname 
+      // && userEmail 
+      // && userBusiness 
+      // && userMentoringCount 
+      // && userPhone
+      // && userTelegram
+      // && 
+      userIncome
+      && userEducationType) {
+      setNextButton(false);
+    }
+
+    // console.log(document.querySelector('#direction'))
     if (mentors) {
       const startMentors = mentors.filter(({directionTypeID}) => directionTypeID === 1);
       const breakthroughtMentors = mentors.filter(({directionTypeID}) => directionTypeID === 2);
@@ -100,14 +136,15 @@ const Form = () => {
       }
       
     }
-  }, [userEducationType, userDirectionType, userIncome])
+  }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef])
 
   const handleNextPage = () => {
     if (activePage.type.name === 'Leaders') {
       return (
         setPage(<Final />),
         setSubmitButton(false),
-        setNextButton(true))
+        setNextButton(true)),
+        setNextShow(false)
     }
 
     return setPage(<Leaders setMentor={setMentorId} mentors={mentorsList} />) 
@@ -115,6 +152,13 @@ const Form = () => {
 
   const handleSubmitForm = (evt) => {
 
+    const getDirectionTypeId = () => {
+      if (userDirectionType) {
+        return +userDirectionType
+      } else {
+        return 1
+      }
+    }
     const data = {
       firstname: userName,
       lastname: userSurname,
@@ -127,15 +171,13 @@ const Form = () => {
 
       mentoringCount: +userMentoringCount,
       educationTypeId: +userEducationType,
-      directionTypeID: +userDirectionType,
+      directionTypeID: getDirectionTypeId(),
       mentorID: +mentorId
     };
 
-
     evt.preventDefault();
     axios
-      .post('https://376e73c485c0.ngrok.io/user/register', data)
-      .then((data) => console.log(data))
+      .post('https://f5e8d4c725d1.ngrok.io/user/register', data)
   };
 
   return (
@@ -144,7 +186,8 @@ const Form = () => {
       onSubmit={(evt) => handleSubmitForm(evt)}>
       {activePage}
 
-      <ButtonsBlock 
+      <ButtonsBlock
+        isNextShowed={isNextShowed}
         isNextDisabled={isNextDisabled} 
         isSubmitDisabled={isSubmitDisabled} 
         handleNextPage={handleNextPage} />

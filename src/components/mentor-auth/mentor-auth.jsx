@@ -14,18 +14,8 @@ const MentorAuth = () => {
     }
     console.log(data)
     evt.preventDefault();
-    // axios
-    //   .post(Set-Cookie, 'https://d1f2737cd8d6.ngrok.io/mentor/auth', data)
-      // .then(window.xhr.getResponseHeader('Set-Cookie'))
-
-      axios.request({
-        url: "https://d1f2737cd8d6.ngrok.io/mentor/auth",
-        method: "post",
-        headers:{
-            Cookie: "cookie1=value"
-        },
-        data 
-   })
+    axios
+      .post('https://d1f2737cd8d6.ngrok.io/mentor/auth', data)
   }
 
   return (

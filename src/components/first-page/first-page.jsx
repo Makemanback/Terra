@@ -26,7 +26,7 @@ const FirstPage = ({
 
   return (
     <>
-      {/* <Header />
+      <Header />
       <Registration />
       <FormTextInput onInputChange={setUserName} title={'Имя'} placeholder={'Ваше имя'} type={'text'} />
       <FormTextInput onInputChange={setUserSurname} title={'Фамилия'} placeholder={'Ваша фамилия'} type={'text'} />
@@ -35,7 +35,7 @@ const FirstPage = ({
       <FormTextInput onInputChange={setUserBusiness} title={'Введите нишу вашего проекта'} placeholder={'Ваша ниша'} type={'text'} />
       <StyledRadioContainer onRadioChange={setUserMentoringCount} title={'Сколько раз проходили наставничество в клубе Терра?'} listData={repeationData} />
       <Phone onInputChange={setUserPhone} />
-      <FormTextInput onInputChange={setUserTelegram} title={'Введите Ваше имя @username в Телеграм (включая символ @)'} placeholder={'Ваш id'} type={'text'} /> */}
+      <FormTextInput onInputChange={setUserTelegram} title={'Введите Ваше имя @username в Телеграм (включая символ @)'} placeholder={'Ваш id'} type={'text'} />
       <StyledRadioContainer onRadioChange={setUserIncome} title={'Ваш ежемесячный чистый доход от вашего проекта?'} listData={incomeData} />
       
       <SimpleRadioContainer onRadioChange={setUserEducationType} title={'Как вы планируете проходить наставничество?'} listData={formatData} />

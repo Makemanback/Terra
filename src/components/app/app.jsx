@@ -10,8 +10,8 @@ const App = () => {
   return (
   <Switch>
     <Route exact path={Path.DEFAULT}>
-      {/* <Main /> */}
-      <MentorAuth />
+      <Main />
+      {/* <MentorAuth /> */}
     </Route>
   </Switch>
   );

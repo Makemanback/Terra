@@ -30,22 +30,25 @@ const Form = () => {
   
   const mentors = useSelector(({LEADERS}) => LEADERS.mentors);
   
-  const [activePage, setPage] = useState(
-  <FirstPage 
-    setUserName={setUserName}
-    setUserSurname={setUserSurname}
-    setUserLastname={setUserLastname}
-    setUserEmail={setUserEmail}
-    setUserBusiness={setUserBusiness}
-    setUserTelegram={setUserTelegram}
-    setUserPhone={setUserPhone}
-    setUserMentoringCount={setUserMentoringCount}
-    setUserIncome={setUserIncome}
-    setUserEducationType={setUserEducationType}
-    setUserDirectionType={setUserDirectionType} />)
+  const firstPage = <FirstPage
+  userIncome={userIncome} 
+  setUserName={setUserName}
+  setUserSurname={setUserSurname}
+  setUserLastname={setUserLastname}
+  setUserEmail={setUserEmail}
+  setUserBusiness={setUserBusiness}
+  setUserTelegram={setUserTelegram}
+  setUserPhone={setUserPhone}
+  setUserMentoringCount={setUserMentoringCount}
+  setUserIncome={setUserIncome}
+  setUserEducationType={setUserEducationType}
+  setUserDirectionType={setUserDirectionType} />
+
+  const [activePage, setPage] = useState(firstPage)
 
   const [isNextDisabled, setNextButton] = useState(false);
   const [isSubmitDisabled, setSubmitButton] = useState(true);
+  const [mentorsList, setMentorsList] = useState(null);
 
   useEffect(() => {
     if (!mentors) {
@@ -54,12 +57,52 @@ const Form = () => {
       .then(({data}) => dispatch(fetchMentors(data.mentors)))
     }
 
-  }, [mentors]);
+    setPage(firstPage)
+  }, [userIncome]);
+  
+  useEffect(() => {
+    if (mentors) {
+      const startMentors = mentors.filter(({directionTypeID}) => directionTypeID === 1);
+      const breakthroughtMentors = mentors.filter(({directionTypeID}) => directionTypeID === 2);
+    
+      const startMentorsOffline = startMentors.filter(({educationTypeID}) => educationTypeID === 1);
+      const startMentorsOnline = startMentors.filter(({educationTypeID}) => educationTypeID === 2);
+    
+      const breakthroughMentorsOffline = breakthroughtMentors.filter(({educationTypeID}) => educationTypeID === 1);
+      const breakthroughMentorsOnline = breakthroughtMentors.filter(({educationTypeID}) => educationTypeID === 2);
+  
+
+      if (userIncome === 'more than 300000') {
+        if (userEducationType === '2' && userDirectionType === '1') {
+          return setMentorsList(startMentorsOffline)
+        }
+
+        if (userEducationType === '1' && userDirectionType === '1') {
+          return setMentorsList(startMentorsOnline);
+        }
+
+        if (userEducationType === '2' && userDirectionType === '2') {
+          return setMentorsList(breakthroughMentorsOffline);
+        }
+      
+        if (userEducationType === '1' && userDirectionType === '2') {
+          return setMentorsList(breakthroughMentorsOnline);
+        }
+      }
+
+      if (userIncome !== 'more than 300000') {
+        if (userEducationType === '1') {
+          return setMentorsList(startMentorsOnline);
+        }
+        if (userEducationType === '2') {
+          return setMentorsList(startMentorsOffline);
+        }
+      }
+      
+    }
+  }, [userEducationType, userDirectionType, userIncome])
 
   const handleNextPage = () => {
-    const statusRadio = document.querySelectorAll('[name=business-type]')
-    const [start, breakthrough] = statusRadio;
-    
     if (activePage.type.name === 'Leaders') {
       return (
         setPage(<Final />),
@@ -67,14 +110,8 @@ const Form = () => {
         setNextButton(true))
     }
 
-    if (start || breakthrough) {
-      return setPage(<Leaders userEducationType={userEducationType} userDirectionType={userDirectionType} setMentor={setMentorId} mentors={mentors} />)
-    }
+    return setPage(<Leaders setMentor={setMentorId} mentors={mentorsList} />) 
   }
-
-  
-
-
 
   const handleSubmitForm = (evt) => {
 
@@ -105,20 +142,7 @@ const Form = () => {
     <form 
       className="form container"
       onSubmit={(evt) => handleSubmitForm(evt)}>
-      {/* {activePage} */}
-      <FirstPage
-    userIncome={userIncome} 
-    setUserName={setUserName}
-    setUserSurname={setUserSurname}
-    setUserLastname={setUserLastname}
-    setUserEmail={setUserEmail}
-    setUserBusiness={setUserBusiness}
-    setUserTelegram={setUserTelegram}
-    setUserPhone={setUserPhone}
-    setUserMentoringCount={setUserMentoringCount}
-    setUserIncome={setUserIncome}
-    setUserEducationType={setUserEducationType}
-    setUserDirectionType={setUserDirectionType} />
+      {activePage}
 
       <ButtonsBlock 
         isNextDisabled={isNextDisabled} 

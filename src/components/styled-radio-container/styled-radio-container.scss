@@ -35,6 +35,9 @@
   &:checked ~ .form__radio-text::after {
     background-color: #299DC6;
   }
+  // &:checked ~ .radio__button {
+  //   background-color: #299DC6;
+  // }
 }
 
 .form__radio-button {
@@ -77,4 +80,19 @@
 .form__radio-text--income::after {
   top: 53px;
   left: 70px;
+}
+
+.radio__button {
+  position: absolute;
+  top: 53px;
+  left: 70px;
+  display: block;
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: #299DC6 2px solid;
+  background-color: white;
+  cursor: pointer;
+  z-index: 5;
 }

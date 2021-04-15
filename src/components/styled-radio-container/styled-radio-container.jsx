@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { repeationData } from '../../const';
 
 import './styled-radio-container.scss';
@@ -10,6 +10,8 @@ const RadioButton = ({
   handleRadio, 
   listData,
   onRadioChange}) => {
+  
+  const radioRef = useRef();
 
   const getRadioClass = () => listData === repeationData  ? `form__radio-text` : `form__radio-text form__radio-text--income`;
 
@@ -26,6 +28,7 @@ const RadioButton = ({
       <span
         onMouseEnter={({target}) => handleRadio(target)} 
         className={getRadioClass()}> {description}</span>
+      {/* <span ref={radioRef} className="radio__button"></span> */}
     </label>
   )
 }

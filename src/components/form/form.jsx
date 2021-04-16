@@ -131,6 +131,7 @@ const Form = () => {
 
       if (userIncome !== 'more than 300000') {
         if (userEducationType === '1') {
+          
           return setMentorsList(startMentorsOnline);
         }
         if (userEducationType === '2') {
@@ -139,7 +140,7 @@ const Form = () => {
       }
       
     }
-  }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef])
+  }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef, isNextDisabled])
 
   const handleNextPage = () => {
 

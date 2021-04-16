@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from 'react-router-dom';
 
-import {fetchMentors} from '../../store/actions';
-
+import {fetchMentors, getTelegramCode} from '../../store/actions';
+import {BASE_URL} from '../../const';
 import ButtonsBlock from '../buttons-block/buttons-block';
 import FirstPage from '../first-page/first-page';
 import Leaders from '../leaders/leaders';
 import Final from '../final/final';
-import LoadingScreen from '../loading-screen/loading-screen';
+import TelegramScreen from '../telegram-screen/telegram-screeen';
 
 const Form = () => {
 
@@ -29,6 +30,8 @@ const Form = () => {
 
   const [mentorId, setMentorId] = useState(null);
   
+  const [buttonsBlock, setButtonsBlock] = useState(true);
+
   const mentors = useSelector(({LEADERS}) => LEADERS.mentors);
   
   const firstPage = <FirstPage
@@ -56,7 +59,7 @@ const Form = () => {
   useEffect(() => {
     if (!mentors) {
       axios
-      .get('http://94.130.230.165:8079/user/fetch_lists_with_mentors')
+      .get(`${BASE_URL}/user/fetch_lists_with_mentors`)
       .then(({data}) => dispatch(fetchMentors(data.mentors)))
     }
   }, []);
@@ -64,39 +67,39 @@ const Form = () => {
   useEffect(() => {
     setPage(firstPage)
     setNextButton(true);
-    
-    if (userDirectionType && userIncome
-      && userEducationType) {
-        // userName 
-        // && userSurname 
-        // && userLastname 
-        // && userEmail 
-        // && userBusiness 
-        // && userMentoringCount 
-        // && userPhone
-        // && userTelegram
-        // && 
-         
+
+    if (userIncome === 'more than 300000') {
+      if (userDirectionType 
+        && userIncome
+        && userEducationType
+        && userName 
+        && userSurname 
+        && userLastname 
+        && userEmail 
+        && userBusiness 
+        && userMentoringCount 
+        && userPhone
+        && userTelegram
+      ) {
         setNextButton(false);
-      
+      }
     }
 
-    if (
-      // userName 
-      // && userSurname 
-      // && userLastname 
-      // && userEmail 
-      // && userBusiness 
-      // && userMentoringCount 
-      // && userPhone
-      // && userTelegram
-      // && 
-      userIncome
-      && userEducationType) {
-      setNextButton(false);
+    if (userIncome !== 'more than 300000') {
+      if (userName 
+        && userSurname 
+        && userLastname 
+        && userEmail 
+        && userBusiness 
+        && userMentoringCount 
+        && userPhone
+        && userTelegram
+        && userIncome
+        && userEducationType) {
+        setNextButton(false);
+      }
     }
 
-    // console.log(document.querySelector('#direction'))
     if (mentors) {
       const startMentors = mentors.filter(({directionTypeID}) => directionTypeID === 1);
       const breakthroughtMentors = mentors.filter(({directionTypeID}) => directionTypeID === 2);
@@ -139,6 +142,7 @@ const Form = () => {
   }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef])
 
   const handleNextPage = () => {
+
     if (activePage.type.name === 'Leaders') {
       return (
         setPage(<Final />),
@@ -147,9 +151,9 @@ const Form = () => {
         setNextShow(false)
     }
 
-    return setPage(<Leaders setMentor={setMentorId} mentors={mentorsList} />) 
+    return setPage(<Leaders mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />) 
   }
-
+  
   const handleSubmitForm = (evt) => {
 
     const getDirectionTypeId = () => {
@@ -158,13 +162,21 @@ const Form = () => {
       } else {
         return 1
       }
+    };
+
+    const getTelegradId = () => {
+      if (userTelegram.includes('@')) {
+        return userTelegram.slice(1, userTelegram.length)
+      }
+      return userTelegram;
     }
+
     const data = {
       firstname: userName,
       lastname: userSurname,
       patronymic: userLastname,
       email: userEmail,
-      tgUsername: userTelegram,
+      tgUsername: getTelegradId(),
       phone: userPhone,
       employments: userBusiness,
       monthlyIncome: userIncome,
@@ -177,7 +189,10 @@ const Form = () => {
 
     evt.preventDefault();
     axios
-      .post('https://f5e8d4c725d1.ngrok.io/user/register', data)
+      .post(`${BASE_URL}/user/register`, data)
+      .then(({data}) => dispatch(getTelegramCode(data.tgVerifyCode)))
+      .then(() => setButtonsBlock(false))
+      .then(() => setPage(<TelegramScreen />))
   };
 
   return (
@@ -186,11 +201,16 @@ const Form = () => {
       onSubmit={(evt) => handleSubmitForm(evt)}>
       {activePage}
 
-      <ButtonsBlock
-        isNextShowed={isNextShowed}
-        isNextDisabled={isNextDisabled} 
-        isSubmitDisabled={isSubmitDisabled} 
-        handleNextPage={handleNextPage} />
+    {
+      buttonsBlock 
+      ? <ButtonsBlock
+          isNextShowed={isNextShowed}
+          isNextDisabled={isNextDisabled} 
+          isSubmitDisabled={isSubmitDisabled} 
+          handleNextPage={handleNextPage} />
+      : null
+    }
+      
     </form>
   )
 }

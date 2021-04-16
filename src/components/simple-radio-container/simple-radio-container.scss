@@ -9,6 +9,17 @@
 
   &::after {
     top: 3px;
+    left: -70px;
+
+    @media (min-width: 1024px) {
+      left: -80px;
+    }
+  }
+}
+
+.form__direction-button {
+  &::after {
+    margin: 0;
     left: 0;
   }
 }

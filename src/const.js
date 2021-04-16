@@ -86,5 +86,15 @@ export const statusData = [
 
 export const Path = {
   DEFAULT: `/`,
-  LEADERS: `/leaders`
+  MENTOR: `/mentor`,
+  AUTHORIZATION: `/authorization`,
+  CODE_PAGE: `/code-page`
 }
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`
+}
+
+// export const BASE_URL = `http://94.130.230.165:8079`;
+export const BASE_URL = `https://fda58e967faf.ngrok.io`;

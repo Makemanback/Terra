@@ -1,10 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {getTelegramCode, fetchMentors, fetchStudents} from './actions';
+import { AuthorizationStatus } from '../const';
+import {getTelegramCode, fetchMentors, fetchStudents, requireAuthorization} from './actions';
 
 const initialState = {
   code: null,
   mentors: null,
   students: null,
+  // authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
 const leaders = createReducer(initialState, (builder) => {
@@ -26,6 +28,12 @@ const leaders = createReducer(initialState, (builder) => {
       students: action.payload,
     };
   });
+  // builder.addCase(requireAuthorization, (state, action) => {
+  //   return {
+  //     ...state,
+  //     authorizationStatus: action.payload,
+  //   };
+  // });
 });
 
 export {leaders};

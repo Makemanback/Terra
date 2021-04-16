@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import './leader.scss';
 
-const Leader = ({setMentor, mentor}) => {
+const Leader = ({setMentor, mentor, mentorId}) => {
 
-  const {ID, fullName, photoURL, employes} = mentor;
+  useEffect(() => {
+    if (mentorId) {
+
+      console.log(mentorId)
+    }
+  }, [mentorId])
+
+  const {ID, fullName, photoURL, employes, videoURL} = mentor;
   return (
     <label 
     className="leader"
@@ -24,10 +31,15 @@ const Leader = ({setMentor, mentor}) => {
           className="radio leader__radio" 
           value={fullName}
            />
+        <span className="leader__border"></span>
         <span className="leader__name">{fullName}</span>
+        <span>
+        Презентация наставника: 
+        <a href={videoURL} className="leader__video" target="_blank">Посмотреть презентацию</a>
+        </span>
         {
-          employes.map(({name, ID}) => {
-            return <span key={ID} className="leader__text">Ниша: {name}</span>
+          employes.map(({name, id}) => {
+            return <span key={id} className="leader__text">Ниша: {name}</span>
           })
         }
         

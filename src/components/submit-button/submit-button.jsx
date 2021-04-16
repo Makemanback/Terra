@@ -4,7 +4,7 @@ import './submit-button.scss';
 
 const SubmitButton = ({isSubmitDisabled}) => {
   return (
-    <button 
+    <button
       disabled={isSubmitDisabled} 
       type="submit" 
       className="submit button">

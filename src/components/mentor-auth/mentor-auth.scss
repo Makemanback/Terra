@@ -7,3 +7,31 @@
   margin-left: auto;
   margin-top: 200px;
 }
+
+.auth__header {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.auth__label {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth__label-text {
+  margin-bottom: 10px;
+}
+
+.auth__input {
+  width: 200px;
+  height: 40px;
+  border: 1px solid #299dc6;
+  margin-bottom: 20px;
+}
+
+.auth__submit {
+  width: 200px;
+  color: #fff;
+  background-color: #299dc6;
+  border-radius: 5px;
+}

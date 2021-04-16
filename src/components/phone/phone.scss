@@ -1,0 +1,7 @@
+.form-control {
+  width: 70%;
+
+  @media (min-width: 1014px) {
+    width: 300px;
+  }
+}

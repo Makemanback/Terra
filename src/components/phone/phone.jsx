@@ -4,6 +4,7 @@ import PhoneInput from 'react-phone-input-2'
 
 import 'react-phone-input-2/lib/style.css'
 
+import './phone.scss';
 
 const Phone = ({onInputChange}) => {
 
@@ -29,6 +30,7 @@ const Phone = ({onInputChange}) => {
     <label className="form__label">
       <span className="form__label-text">Телефон:</span>
       <PhoneInput
+        className="phone__input"
         onChange={(number) => onInputChange(number)}
         country={countryCode.toLowerCase()}
         value={number}

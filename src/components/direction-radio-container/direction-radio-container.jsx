@@ -12,7 +12,7 @@ const SimpleRadioButton = ({value, name, description, id, onRadioChange}) => {
         value={value} 
         required />
       <span
-        className="form__radio-text form__radio-text--simple"> {description}</span>
+        className="form__radio-text form__radio-text--simple form__direction-button"> {description}</span>
     </label>
   )
 }

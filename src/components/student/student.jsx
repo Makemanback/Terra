@@ -1,9 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import axios from "axios";
+
+import {BASE_URL} from '../../const';
 
 import './student.scss';
+import UserSelect from '../user-select/user-select';
 
-const Student = ({student}) => {
-
+const Student = ({student, mentorId}) => {
+  
   const {
     fullName, 
     employment, 
@@ -13,9 +17,49 @@ const Student = ({student}) => {
     tgUsername,
     educationTypeName,
     directionName,
-    stateName} = student;
+    stateName,
+    ID,
+    userID,
+    stateID} = student;
 
-    const [studentState, setStudentState] = useState(stateName);
+  const [studentState, setStudentState] = useState(stateName);
+  const [studentStateId, setStudentStateId] = useState(1);
+  const [stateless, setStateless] = useState(stateID);
+
+  const handleSubmitStudent = (evt) => {
+
+    const data = {
+      userRegistrationID: +ID,
+      userID: +userID,
+      stateID: +studentStateId
+    }
+    evt.preventDefault();
+    setStateless(0);
+    axios
+      .post(`${BASE_URL}/mentor/update_registration_state`, data, { 'headers': { 'mentor_id': mentorId } })
+      .then((res) => console.log(res))
+
+  
+
+  }
+
+  const handleOptionChange = (target) => {
+    setStudentState(target.value);
+
+    if (target[0].selected) {
+      setStudentStateId(target[0].id);
+    }
+    if (target[1].selected) {
+      setStudentStateId(target[1].id);
+    }
+    if (target[2].selected) {
+      setStudentStateId(target[2].id);
+    }
+    if (target[3].selected) {
+      setStudentStateId(target[3].id);
+    }
+  }
+
   return (
     <li className="student">
       
@@ -29,35 +73,11 @@ const Student = ({student}) => {
       <p className="student__description student__direction-type">Направление: {directionName}</p>
       <p className="student__description student__current-state">Состояние: {studentState}</p>
 
-      <form 
-        className="student__form"
-        onSubmit={() => console.log(`subm`)} >
-      <select
-        onChange={({target}) => setStudentState(target.value)}
-        name="student-state">
-        <option
-          id="1" 
-          value="На расмотрении">
-            На расмотрении
-        </option>
-        <option 
-          id="2" 
-          value="Не смогу помочь">
-            Не смогу помочь
-        </option>
-        <option
-          id="3" 
-          value="Подтвержден">
-            Подтвержден
-        </option>
-        <option 
-          id="4" 
-          value="Накосячил">
-            Накосячил
-        </option>
-      </select>
-      <button type="submit" className="student__submit">Подтвердить</button>
-      </form>
+    {stateless === 1 
+    ? <UserSelect handleSubmitStudent={handleSubmitStudent} handleOptionChange={handleOptionChange} />
+  : null
+  }
+      
     </li>
   )
 };

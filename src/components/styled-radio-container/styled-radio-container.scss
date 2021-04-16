@@ -1,7 +1,3 @@
-.radio__header {
-  margin-bottom: 10px;
-}
-
 .radio__wrapper {
   position: relative;
   display: grid;
@@ -13,11 +9,19 @@
   display: block;
   content: "";
   bottom: -1px;
-  left: 68px;
-  width: 590px;
+  left: 0;
+  right: 0;
+  width: 80%;
   height: 8px;
   border: solid 2px #299DC6;
   background-color: white;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: 1024px) {
+    width: 530px;
+    left: 0;
+  }
 }
 
 .radio {
@@ -35,16 +39,6 @@
   &:checked ~ .form__radio-text::after {
     background-color: #299DC6;
   }
-  // &:checked ~ .radio__button {
-  //   background-color: #299DC6;
-  // }
-}
-
-.form__radio-button {
-  &:hover {
-    outline: none;
-    cursor: pointer;
-  }
 }
 
 .form__radio-text {
@@ -54,8 +48,11 @@
 
   &::after {
     position: absolute;
-    top: 25px;
-    left: 63px;
+    top: 35px;
+    left: 0;
+    right: 0;    
+    margin-right: auto;
+    margin-left: auto;
     display: block;
     content: "";
     width: 20px;
@@ -65,21 +62,28 @@
     background-color: white;
     cursor: pointer;
     z-index: 5;
+
+    @media (min-width: 1024px) {
+      top: 25px;
+    }
   }
 }
 
 .form__radio-progress--income {
-  width: 580px;
   top: 60px;
   left: 0;
   right: 0;
   margin-right: auto;
   margin-left: auto;
+
+  @media (min-width: 1024px) {
+    width: 520px;
+    left: -14px;
+  }
 }
 
 .form__radio-text--income::after {
   top: 53px;
-  left: 70px;
 }
 
 .radio__button {

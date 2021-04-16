@@ -12,12 +12,15 @@ const App = () => {
   <Switch>
     <Route exact path={Path.DEFAULT}>
       <Main />
-      {/* <MentorAuth /> */}
-      
     </Route>
-    <Route exact path={'/mentor'}>
+
+    {/* <Route exact path={Path.MENTOR}>
       <MentorPage />
     </Route>
+
+    <Route exact path={Path.AUTHORIZATION}>
+      <MentorAuth />
+    </Route> */}
   </Switch>
   );
 }

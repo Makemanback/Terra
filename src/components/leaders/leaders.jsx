@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import {useDispatch} from "react-redux";
-
+import React, {useEffect, useState} from 'react';
 
 import Leader from '../leader/leader';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -8,16 +6,23 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import './leaders.scss';
 
 
-const Leaders = ({setMentor, mentors}) => {
+const Leaders = ({setMentor, mentors, mentorId}) => {
 
   const [mentorsList, setList] = useState(mentors);
-  
+
+  // useEffect(() => {
+  //   if (!mentors) {
+
+  //   }
+  // },
+  // []);
+
   if (!mentors) {
     return (
       <LoadingScreen />
     );
   }
-  
+
   const searchHandler = (target) => {
     
     const {value} = target;
@@ -53,7 +58,7 @@ const Leaders = ({setMentor, mentors}) => {
         <input 
           type="text" 
           className="form__search-field" 
-          placeholder="введите имя наставника"
+          placeholder="введите имя или нишу наставника"
           onChange={({target}) => searchHandler(target)}
            />
       </div>
@@ -63,7 +68,7 @@ const Leaders = ({setMentor, mentors}) => {
       {
         mentorsList.map((mentor, index) => {
           return (
-            <Leader key={index} setMentor={setMentor} mentor={mentor} />
+            <Leader mentorId={mentorId} key={index} setMentor={setMentor} mentor={mentor} />
           )
         })
       }

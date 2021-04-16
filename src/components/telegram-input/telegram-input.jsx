@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './form-text-input.scss';
+import './telegram-input.scss';
 
-const FormTextInput = ({title, placeholder, type, onInputChange}) => {
+const TelegramInput = ({title, placeholder, type, onInputChange}) => {
 
   return (
   <div className="container__inner">
@@ -11,12 +11,13 @@ const FormTextInput = ({title, placeholder, type, onInputChange}) => {
       <input
         onChange={(evt) => onInputChange(evt.target.value)}
         type={type} 
-        className="input input__name" 
+        className="input input__name input__telegram" 
         placeholder={placeholder} 
         required />
+      <span className="input__telegram-at">@</span>
     </label>
   </div>
   )
 }
 
-export default FormTextInput;
+export default TelegramInput;

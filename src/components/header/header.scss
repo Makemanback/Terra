@@ -11,13 +11,17 @@
 .header__container {
   display: flex;
   flex-direction: column;
-  max-width: 770px;
+  max-width: 90%;
   margin-right: auto;
   margin-left: auto;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #D9DCE0;
   background-color: #fff;
+
+  @media (min-width: 1024px) {
+    max-width: 770px;
+  }
 }
 
 .header__header {

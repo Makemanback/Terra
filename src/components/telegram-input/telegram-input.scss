@@ -1,0 +1,14 @@
+.input__telegram {
+    padding-left: 20px;
+}
+
+.input__telegram-at {
+  position: absolute;
+  z-index: 4;
+  top: 52px;
+  left: 1px;
+
+  @media (min-width: 1024px) {
+    top: 38px;
+  }
+}

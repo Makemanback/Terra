@@ -3,6 +3,7 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 
 import { fetchStudents } from '../../store/actions';
+import {BASE_URL} from '../../const';
 
 import LoadingScreen from '../loading-screen/loading-screen';
 import Student from '../student/student';
@@ -13,11 +14,12 @@ const MentorPage = () => {
   const dispatch = useDispatch();
 
   const students = useSelector(({LEADERS}) => LEADERS.students);
+  let mentorId = 5;
 
   useEffect(() => {
-    const URL = 'http://94.130.230.165:8079/mentor/fetch_registrations' 
+    const URL = `${BASE_URL}/mentor/fetch_registrations`
     if (!students) {
-      axios.get(URL, { 'headers': { 'mentor_id': 5 } })
+      axios.get(URL, { 'headers': { 'mentor_id': mentorId } })
         .then(({data}) => dispatch(fetchStudents(data)))
     }
   }, []);
@@ -32,7 +34,8 @@ const MentorPage = () => {
         <h2>Список студентов</h2>
         {
           students.map((student) => {
-            return <Student 
+            return <Student
+              mentorId={mentorId} 
               key={student.userID} 
               student={student} />
           })

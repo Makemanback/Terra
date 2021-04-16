@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {repeationData, incomeData, formatData, statusData} from '../../const';
 
@@ -9,7 +9,8 @@ import DirectionRadioContainer from "../direction-radio-container/direction-radi
 import Header from '../header/header';
 import Registration from '../registration/registration';
 import Phone from '../phone/phone';
-import { useSelector } from 'react-redux';
+import TelegramInput from '../telegram-input/telegram-input';
+import IncomeRadioContainer from '../income-radio-container/income-radio-container';
 
 const FirstPage = ({
   setUserName, 
@@ -33,12 +34,12 @@ const FirstPage = ({
       <FormTextInput onInputChange={setUserName} title={'Имя'} placeholder={'Ваше имя'} type={'text'} />
       <FormTextInput onInputChange={setUserSurname} title={'Фамилия'} placeholder={'Ваша фамилия'} type={'text'} />
       <FormTextInput onInputChange={setUserLastname} title={'Отчество'} placeholder={'Ваше отчество'} type={'text'} />
-      <FormTextInput onInputChange={setUserEmail} title={'Email'} placeholder={'Ваше email'} type={'email'} />
+      <FormTextInput onInputChange={setUserEmail} title={'Email'} placeholder={'Ваш email'} type={'email'} />
       <FormTextInput onInputChange={setUserBusiness} title={'Введите нишу вашего проекта'} placeholder={'Ваша ниша'} type={'text'} />
       <StyledRadioContainer onRadioChange={setUserMentoringCount} title={'Сколько раз проходили наставничество в клубе Терра?'} listData={repeationData} />
       <Phone onInputChange={setUserPhone} />
-      <FormTextInput onInputChange={setUserTelegram} title={'Введите Ваше имя @username в Телеграм (включая символ @)'} placeholder={'Ваш id'} type={'text'} />
-      <StyledRadioContainer onRadioChange={setUserIncome} title={'Ваш ежемесячный чистый доход от вашего проекта?'} listData={incomeData} /> 
+      <TelegramInput onInputChange={setUserTelegram} title={'Введите Ваше имя (username) в Телеграм'} placeholder={'Ваш id'} type={'text'} />
+      <IncomeRadioContainer onRadioChange={setUserIncome} title={'Ваш ежемесячный чистый доход от вашего проекта?'} listData={incomeData} /> 
       
       <SimpleRadioContainer onRadioChange={setUserEducationType} title={'Как вы планируете проходить наставничество?'} listData={formatData} />
       {userIncome === 'more than 300000' ? <DirectionRadioContainer directionRef={directionRef} onRadioChange={setUserDirectionType} title={'Ваш статус:'} listData={statusData} /> : null}

@@ -1,22 +1,16 @@
-import React, { useRef, useState } from 'react';
-import { repeationData } from '../../const';
+import React, { useState } from 'react';
 
-import './styled-radio-container.scss';
+import './income-radio-container.scss';
 
 const RadioButton = ({
   value, 
   name, 
   description, 
   handleRadio, 
-  listData,
   onRadioChange}) => {
-  
-  const radioRef = useRef();
-
-  const getRadioClass = () => listData === repeationData  ? `form__radio-text` : `form__radio-text form__radio-text--income`;
 
   return (
-    <label className="form__radio-button">
+    <label className="form__radio-button form__radio-button--income">
       <input
         onInput={({target}) => onRadioChange(target.value)}
         onChange={({target}) => handleRadio(target)} 
@@ -27,15 +21,13 @@ const RadioButton = ({
         required />
       <span
         onMouseEnter={({target}) => handleRadio(target)} 
-        className={getRadioClass()}> {description}</span>
+        className="form__radio-text form__radio-text--income"> {description}</span>
     </label>
   )
 }
 
-const StyledRadioContainer = ({listData, title, onRadioChange}) => {
+const IncomeRadioContainer = ({listData, title, onRadioChange}) => {
   const [progressBar, setProgress] = useState(0);
-
-  const getProgressClass = () => listData === repeationData  ? `form__radio-progress` : `form__radio-progress form__radio-progress--income`;
 
   const handleRadio = (target) => {
     
@@ -45,9 +37,9 @@ const StyledRadioContainer = ({listData, title, onRadioChange}) => {
       case '2':
         return setProgress(25)
       case '3':
-        return setProgress(50)
+        return setProgress(47)
       case '4':
-        return setProgress(75)
+        return setProgress(70)
       case '5':
         return setProgress(100)
       default:
@@ -62,10 +54,10 @@ const StyledRadioContainer = ({listData, title, onRadioChange}) => {
         setProgress(25)
         break;
       case '200000-300000':
-        setProgress(50);
+        setProgress(47);
         break;
       case 'more than 300000':
-        setProgress(75);
+        setProgress(70);
         break;
       case 'newcomer':
         setProgress(100);
@@ -82,10 +74,10 @@ const StyledRadioContainer = ({listData, title, onRadioChange}) => {
         setProgress(25)
         break;
       case '200 000 - 300 000 рублей':
-        setProgress(50);
+        setProgress(47);
         break;
       case 'Свыше 300 000 рублей':
-        setProgress(75);
+        setProgress(70);
         break;
       case 'Я начинающий предприниматель':
         setProgress(100);
@@ -98,7 +90,7 @@ const StyledRadioContainer = ({listData, title, onRadioChange}) => {
   return (
   <div className="container__inner form__radio-container">
     <h3 className="radio__header">{title}</h3>
-    <div className="radio__wrapper">
+    <div className="radio__wrapper radio__wrapper--income">
       {
         listData.map(({name, value, description}) => {
           return (
@@ -107,12 +99,12 @@ const StyledRadioContainer = ({listData, title, onRadioChange}) => {
         })
       }
       <div
-        className={getProgressClass()}
-        style={{background: `linear-gradient(to right, #299DC6 ${progressBar}%, white ${progressBar}%)`}}>
+        className="form__radio-progress form__radio-progress--income"
+        style={{background: `linear-gradient(to ${window.innerWidth > 1023 ? `right` : `bottom`}, #299DC6 ${progressBar}%, white ${progressBar}%)`}}>
       </div>
     </div>
   </div>
   )
 }
 
-export default StyledRadioContainer;
+export default IncomeRadioContainer;

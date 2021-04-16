@@ -1,13 +1,27 @@
 
 .form__label {
+  position: relative;
   display: flex;
   flex-direction: column;
+  max-width: 300px;
+
+  input {
+    @media (max-width: 1023px) {
+      width: 100% !important;
+    }
+  }
 }
 
 .form__label-text {
   position: relative;
   margin-bottom: 15px;
-  width: max-content;
+  font-size: 14px;
+  width: 90%;
+
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    width: max-content;
+  }
 
   &::after {
     position: absolute;
@@ -21,9 +35,13 @@
 }
 
 .input {
-  width: 300px;
+  width: 70%;
   height: 25px;
   border: none;
   background-color: #fff;
   border-bottom: 1px solid #000;
+
+  @media (min-width: 1024px) {
+    width: 300px;
+  }
 }

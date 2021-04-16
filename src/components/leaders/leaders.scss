@@ -23,25 +23,19 @@
   flex-direction: column;
 }
 
-.form__label-text {
-  position: relative;
-  margin-bottom: 15px;
-  width: max-content;
-
-  &::after {
-    position: absolute;
-    display: block;
-    content: "*";
-    color: red;
-    font-size: 10px;
-    top: 3px;
-    right: -10px;
-  }
-}
 
 .form__radio-button {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+
+  @media (min-width: 1024px) {
+    margin-bottom: 15px;
+  }
+
+  &:hover {
+    outline: none;
+    cursor: pointer;
+  }
 
   .form__radio-leader {
     position: absolute;
@@ -83,15 +77,21 @@
 
 .form__search-field {
   display: block;
-  width: 400px;
+  width: 70%;
+  max-width: 300px;
   padding: 10px;
   margin-bottom: 20px;
+
+  @media (min-width: 1024px) {
+    width: 400px;
+  }
 }
 
 .radio__header {
   position: relative;
   display: block;
-  width: max-content;
+  width: 90%;
+  text-align: center;
 
   &::after {
     position: absolute;
@@ -101,5 +101,9 @@
     font-size: 10px;
     top: 3px;
     right: -10px;
+  }
+
+  @media (min-width: 1024px) {
+    width: max-content;
   }
 }

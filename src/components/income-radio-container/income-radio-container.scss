@@ -8,7 +8,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 200px;
+    width: auto;
+
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .form__radio-text--income {
@@ -22,11 +25,75 @@
   }
 
   .form__radio-progress--income {
-    top: 0;
-    left: 208px;
+    top: 20px;
+    left: 101%;
     width: 8px;
     height: 80%;
   }
+}
 
+.rating__input {
+  display: none; 
+}
 
+.rating__input:checked ~ .rating__label::after {
+  background-color: white;
+  
+}
+
+.rating__input:checked + .rating__label::after {
+  background-color: #299DC6;
+}
+
+.rating__input:indeterminate + .rating__label::after {
+  background-color: white;
+}
+
+.rating__label {
+  position: relative;
+  display: block;
+  cursor: pointer; 
+  height: 50px;
+  
+
+  @media (min-width: 1024px) {
+    height: auto;
+    margin-bottom: 30px;
+  }
+}
+
+.rating__label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  right: -18px;
+  color: white;
+  border-radius: 50%;
+  border: #299DC6 2px solid;
+  background-color: #299DC6;
+
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+
+  z-index: 5;
+
+  @media (min-width: 1024px) {
+    top: 110px;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.radio__inner {
+  @media (min-width: 1024px) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

@@ -7,6 +7,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from './store/root-reducer';
 import browserHistory from "./browser-history";
 import {createAPI} from "./api/api";
+import {redirect} from "./store/middlewares/redirect";
 
 import App from './components/app/app';
 
@@ -19,7 +20,7 @@ const store = configureStore({
       thunk: {
         extraArgument: api
       },
-    })
+    }).concat(redirect)
 });
 
 ReactDOM.render(

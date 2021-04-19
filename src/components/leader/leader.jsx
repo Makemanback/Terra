@@ -1,17 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import './leader.scss';
 
-const Leader = ({setMentor, mentor, mentorId}) => {
-
-  useEffect(() => {
-    if (mentorId) {
-
-      console.log(mentorId)
-    }
-  }, [mentorId])
+const Leader = ({setMentor, mentor}) => {
 
   const {ID, fullName, photoURL, employes, videoURL} = mentor;
+
   return (
     <label 
     className="leader"
@@ -35,7 +29,7 @@ const Leader = ({setMentor, mentor, mentorId}) => {
         <span className="leader__name">{fullName}</span>
         <span>
         Презентация наставника: 
-        <a href={videoURL} className="leader__video" target="_blank">Посмотреть презентацию</a>
+        <a href={videoURL} className="leader__video" target="_blank" rel="noreferrer">Посмотреть презентацию</a>
         </span>
         {
           employes.map(({name, id}) => {

@@ -8,7 +8,6 @@ import './phone.scss';
 
 const Phone = ({onInputChange}) => {
 
-  const [number, setNumber] = useState(null);
   const [countryCode, setCountry] = useState('');
 
   const getGeoInfo = () => {
@@ -33,7 +32,6 @@ const Phone = ({onInputChange}) => {
         className="phone__input"
         onChange={(number) => onInputChange(number)}
         country={countryCode.toLowerCase()}
-        value={number}
       />
     </label>
   </div>

@@ -94,7 +94,24 @@ export const Path = {
 export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`
+};
+
+export const DirectionTypeId = {
+  START: 1,
+  BREAKTHROUGH: 2,
+  START_AND_BREAKTHROUGH: 3
+};
+
+export const EducationTypeId = {
+  OFFLINE: 1,
+  ONLINE: 2,
+  OFFLINE_AND_ONLINE: 3
+};
+
+export const Income = {
+  MORE_300000: 'more than 300000',
+  LESS_300000: '299'
 }
 
-// export const BASE_URL = `http://94.130.230.165:8079`;
-export const BASE_URL = `https://fda58e967faf.ngrok.io`;
+export const BASE_URL = `http://94.130.230.165:8079`;
+// export const BASE_URL = `https://fda58e967faf.ngrok.io`;

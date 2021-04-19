@@ -1,34 +1,42 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {Redirect} from 'react-router-dom';
 
-import {redirectToRoute} from '../../store/actions';
-import {Path} from '../../const';
+import {Path, AuthorizationStatus} from '../../const';
 
 import './mentor-auth.scss';
+import ApiService from '../../store/api-actions';
+
+const apiService = new ApiService();
 
 const MentorAuth = () => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
+  const [errorBlock, setErrorBlock] = useState(false);
+
+  const authorizationStatus = useSelector(({LEADERS}) => LEADERS.authorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={Path.MENTOR} />;
+  }
 
   const handleAuth = (evt) => {
     const data = {
       username: username,
       password: password
     }
-    console.log(data)
+
+
     evt.preventDefault();
-    axios
-      .post('https://d1f2737cd8d6.ngrok.io/mentor/auth', data)
-      .catch(() => dispatch(redirectToRoute(Path.MENTOR)))
-      .catch(() => dispatch(redirectToRoute(Path.MENTOR)))
+    dispatch(apiService.login(data))
+    .catch(() => setErrorBlock(true));
   }
 
   return (
     <form
-    onSubmit={(evt) => handleAuth(evt)} 
+    onSubmit={handleAuth} 
     className="auth">
       <h3 className="auth__header">Форма входа для наставника</h3>
       <label className="auth__label">
@@ -45,6 +53,9 @@ const MentorAuth = () => {
           onInput={({target}) => setPassword(target.value)}
           type="password"/>
       </label> 
+      {errorBlock 
+      ? <span className="auth__error">Неверный логин или пароль</span>
+      : null}
       <button className="auth__submit button">Войти</button>
     </form>
   )

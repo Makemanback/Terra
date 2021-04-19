@@ -1,34 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { repeationData } from '../../const';
 
 import './styled-radio-container.scss';
 
 const RadioButton = ({
   value, 
-  name, 
   description, 
   handleRadio, 
-  listData,
   onRadioChange}) => {
   
-  const radioRef = useRef();
-
-  const getRadioClass = () => listData === repeationData  ? `form__radio-text` : `form__radio-text form__radio-text--income`;
-
   return (
-    <label className="form__radio-button">
-      <input
+    <>
+    <input
         onInput={({target}) => onRadioChange(target.value)}
         onChange={({target}) => handleRadio(target)} 
-        type="radio" 
-        name={name} 
-        className="radio" 
-        value={value} 
-        required />
-      <span
-        onMouseEnter={({target}) => handleRadio(target)} 
-        className={getRadioClass()}> {description}</span>
-    </label>
+        className="rating__input"
+        id={`${value}`}
+        type="radio"
+        name="repeation"
+        value={value}
+        />
+      <label
+        className="rating__label rating__income"
+        htmlFor={`${value}`}>
+          {description}
+      </label>
+    </>
   )
 }
 
@@ -99,13 +96,13 @@ const StyledRadioContainer = ({listData, title, onRadioChange}) => {
   <div className="container__inner form__radio-container">
     <h3 className="radio__header">{title}</h3>
     <div className="radio__wrapper">
-      {
-        listData.map(({name, value, description}) => {
-          return (
-            <RadioButton key={value} listData={listData} onRadioChange={onRadioChange} handleRadio={handleRadio} value={value} name={name} description={description} />
-          )
-        })
-      }
+        {
+          listData.map(({name, value, description}) => {
+            return (
+              <RadioButton key={value} listData={listData} onRadioChange={onRadioChange} handleRadio={handleRadio} value={value} name={name} description={description} />
+            )
+          })
+        }
       <div
         className={getProgressClass()}
         style={{background: `linear-gradient(to right, #299DC6 ${progressBar}%, white ${progressBar}%)`}}>

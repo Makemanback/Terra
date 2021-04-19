@@ -70,15 +70,16 @@
 }
 
 .form__radio-progress--income {
-  top: 60px;
+  top: 67px;
   left: 0;
   right: 0;
   margin-right: auto;
   margin-left: auto;
 
   @media (min-width: 1024px) {
-    width: 520px;
-    left: -14px;
+    width: 510px;
+    left: -33px;
+    top: 77px;
   }
 }
 
@@ -99,4 +100,24 @@
   background-color: white;
   cursor: pointer;
   z-index: 5;
+}
+
+.rating__income {
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    margin-bottom: 0;
+  }
+
+  &::after {
+    top: 40px !important;
+    left: -12px;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+
+    @media (min-width: 1024px) {
+      top: 80px !important;
+    }
+  }
 }

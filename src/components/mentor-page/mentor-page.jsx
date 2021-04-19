@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from 'react-router-dom';
 
 import { fetchStudents } from '../../store/actions';
-import {BASE_URL} from '../../const';
+import {BASE_URL, Path, AuthorizationStatus} from '../../const';
 
 import LoadingScreen from '../loading-screen/loading-screen';
 import Student from '../student/student';
@@ -14,15 +15,21 @@ const MentorPage = () => {
   const dispatch = useDispatch();
 
   const students = useSelector(({LEADERS}) => LEADERS.students);
-  let mentorId = 5;
+  const authorizationStatus = useSelector(({LEADERS}) => LEADERS.authorizationStatus);
+
+  let mentorId = 35;
 
   useEffect(() => {
     const URL = `${BASE_URL}/mentor/fetch_registrations`
     if (!students) {
-      axios.get(URL, { 'headers': { 'mentor_id': mentorId } })
+      axios.get(URL)
         .then(({data}) => dispatch(fetchStudents(data)))
     }
-  }, []);
+  });
+
+  if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+    return <Redirect to={Path.AUTHORIZATION} />;
+  }
 
   if (!students) {
     return <LoadingScreen />
@@ -46,8 +53,3 @@ const MentorPage = () => {
 }
 
 export default MentorPage;
-
-// селект на выбор 1 состояние 
-
-
-// каждый студент - форма с одним полем - при каждом селекте запрос на сервер

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import Leader from '../leader/leader';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -9,13 +9,6 @@ import './leaders.scss';
 const Leaders = ({setMentor, mentors, mentorId}) => {
 
   const [mentorsList, setList] = useState(mentors);
-
-  // useEffect(() => {
-  //   if (!mentors) {
-
-  //   }
-  // },
-  // []);
 
   if (!mentors) {
     return (
@@ -47,7 +40,6 @@ const Leaders = ({setMentor, mentors, mentorId}) => {
       setList(filteredMentors);
     }
   };
-
   
   return (
     <section className="second">
@@ -66,9 +58,9 @@ const Leaders = ({setMentor, mentors, mentorId}) => {
 
     <div>
       {
-        mentorsList.map((mentor, index) => {
+        mentorsList.map((mentor) => {
           return (
-            <Leader mentorId={mentorId} key={index} setMentor={setMentor} mentor={mentor} />
+            <Leader mentorId={mentorId} key={mentor.ID} setMentor={setMentor} mentor={mentor} />
           )
         })
       }

@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useSelector} from "react-redux";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import LoadingScreen from '../loading-screen/loading-screen'
@@ -51,7 +50,8 @@ const TelegramScreen = () => {
       <a
         className="telegram__link"
         href={tgBotLink}
-        target='_blank' >
+        target="_blank"
+        rel="noreferrer" >
         Перейти в телеграм бот
       </a>
     </div>

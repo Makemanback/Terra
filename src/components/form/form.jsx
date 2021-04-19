@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {Redirect} from 'react-router-dom';
 
 import {fetchMentors, getTelegramCode} from '../../store/actions';
-import {BASE_URL} from '../../const';
+import {BASE_URL, DirectionTypeId, Income, EducationTypeId} from '../../const';
 import ButtonsBlock from '../buttons-block/buttons-block';
 import FirstPage from '../first-page/first-page';
 import Leaders from '../leaders/leaders';
@@ -62,13 +61,13 @@ const Form = () => {
       .get(`${BASE_URL}/user/fetch_lists_with_mentors`)
       .then(({data}) => dispatch(fetchMentors(data.mentors)))
     }
-  }, []);
+  }, [mentors, dispatch]);
   
   useEffect(() => {
     setPage(firstPage)
     setNextButton(true);
-
-    if (userIncome === 'more than 300000') {
+    
+    if (userIncome === Income.MORE_300000) {
       if (userDirectionType 
         && userIncome
         && userEducationType
@@ -85,7 +84,7 @@ const Form = () => {
       }
     }
 
-    if (userIncome !== 'more than 300000') {
+    if (userIncome !== Income.MORE_300000) {
       if (userName 
         && userSurname 
         && userLastname 
@@ -101,17 +100,48 @@ const Form = () => {
     }
 
     if (mentors) {
-      const startMentors = mentors.filter(({directionTypeID}) => directionTypeID === 1);
-      const breakthroughtMentors = mentors.filter(({directionTypeID}) => directionTypeID === 2);
     
-      const startMentorsOffline = startMentors.filter(({educationTypeID}) => educationTypeID === 1);
-      const startMentorsOnline = startMentors.filter(({educationTypeID}) => educationTypeID === 2);
-    
-      const breakthroughMentorsOffline = breakthroughtMentors.filter(({educationTypeID}) => educationTypeID === 1);
-      const breakthroughMentorsOnline = breakthroughtMentors.filter(({educationTypeID}) => educationTypeID === 2);
-  
+    const startMentors = mentors.filter(({directionTypeID}) => {
+      return directionTypeID === DirectionTypeId.START 
+      || directionTypeID === DirectionTypeId.START_AND_BREAKTHROUGH
+    });
 
-      if (userIncome === 'more than 300000') {
+    const breakthroughtMentors = mentors.filter(({directionTypeID}) => {
+      return directionTypeID === DirectionTypeId.BREAKTHROUGH 
+      || directionTypeID === DirectionTypeId.START_AND_BREAKTHROUGH
+    });
+    
+    const startMentorsOffline = startMentors.filter(({educationTypeID}) => {
+      return educationTypeID === EducationTypeId.OFFLINE
+      || educationTypeID === EducationTypeId.OFFLINE_AND_ONLINE
+    });
+    
+    const startMentorsOnline = startMentors.filter(({educationTypeID}) =>  {
+      return educationTypeID === EducationTypeId.ONLINE
+      || educationTypeID === EducationTypeId.OFFLINE_AND_ONLINE
+    });
+    
+    const breakthroughMentorsOffline = breakthroughtMentors.filter(({educationTypeID}) => {
+      return educationTypeID === EducationTypeId.OFFLINE
+      || educationTypeID === EducationTypeId.OFFLINE_AND_ONLINE
+    });
+    
+    const breakthroughMentorsOnline = breakthroughtMentors.filter(({educationTypeID}) => {
+      return educationTypeID === EducationTypeId.ONLINE
+      || educationTypeID === EducationTypeId.OFFLINE_AND_ONLINE
+    });
+
+      if (userIncome === Income.MORE_300000) {
+        if ((userEducationType === 
+          EducationTypeId.OFFLINE || 
+          EducationTypeId.ONLINE ||
+          EducationTypeId.OFFLINE_AND_ONLINE)
+          && DirectionTypeId.BREAKTHROUGH) {
+            setMentorsList(breakthroughtMentors)
+          }
+      }
+
+      if (userIncome === Income.MORE_300000) {
         if (userEducationType === '2' && userDirectionType === '1') {
           return setMentorsList(startMentorsOffline)
         }
@@ -129,7 +159,7 @@ const Form = () => {
         }
       }
 
-      if (userIncome !== 'more than 300000') {
+      if (userIncome !== Income.MORE_300000) {
         if (userEducationType === '1') {
           
           return setMentorsList(startMentorsOnline);
@@ -138,9 +168,9 @@ const Form = () => {
           return setMentorsList(startMentorsOffline);
         }
       }
-      
     }
-  }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef, isNextDisabled])
+
+  }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef])
 
   const handleNextPage = () => {
 
@@ -148,13 +178,15 @@ const Form = () => {
       return (
         setPage(<Final />),
         setSubmitButton(false),
-        setNextButton(true)),
+        setNextButton(true),
         setNextShow(false)
+      )
     }
 
     return setPage(<Leaders mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />) 
   }
   
+
   const handleSubmitForm = (evt) => {
 
     const getDirectionTypeId = () => {

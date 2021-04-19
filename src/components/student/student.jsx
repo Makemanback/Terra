@@ -35,12 +35,9 @@ const Student = ({student, mentorId}) => {
     }
     evt.preventDefault();
     setStateless(0);
+    
     axios
       .post(`${BASE_URL}/mentor/update_registration_state`, data, { 'headers': { 'mentor_id': mentorId } })
-      .then((res) => console.log(res))
-
-  
-
   }
 
   const handleOptionChange = (target) => {

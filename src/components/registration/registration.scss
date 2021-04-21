@@ -24,7 +24,11 @@
 .container__wrapper {
   display: block;
   margin-bottom: 20px;
-  width: 400px;
+  width: auto;
   margin-right: auto;
   margin-left: auto;
+
+  @media (min-width: 1024px) {
+    width: 400px;
+  }
 }

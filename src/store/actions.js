@@ -5,7 +5,9 @@ export const ActionType = {
   FETCH_STUDENTS: `FETCH_STUDENTS`,
   GET_TELEGRAM_CODE: `GET_TELEGRAM_CODE`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_TOKEN: `GET_TOKEN`,
+  GET_ERROR_MESSAGE: `GET_ERROR_MESSAGE`
 }
 
 
@@ -28,3 +30,12 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) 
 export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status
 }));
+
+export const getToken = createAction(ActionType.GET_TOKEN, (token) => ({
+  payload: token
+}));
+
+export const getErrorMessage = createAction(ActionType.GET_ERROR_MESSAGE, (message) => ({
+  payload: message
+}));
+

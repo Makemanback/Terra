@@ -49,19 +49,19 @@ const IncomeRadioContainer = ({listData, title, onRadioChange}) => {
     }
 
     switch (target.value) {
-      case '0-100000':
+      case 'newcomer':
         setProgress(0);
         break;
+      case '0-100000':
+        setProgress(25);
+        break;
       case '100000-200000':
-        setProgress(25)
+        setProgress(50)
         break;
       case '200000-300000':
-        setProgress(50);
-        break;
-      case 'more than 300000':
         setProgress(75);
         break;
-      case 'newcomer':
+      case 'more than 300000':
         setProgress(100);
         break;
       default:
@@ -69,19 +69,19 @@ const IncomeRadioContainer = ({listData, title, onRadioChange}) => {
     }
 
     switch (target.innerText) {
-      case '0 - 100 000 рублей':
+      case 'Я начинающий предприниматель':
         setProgress(0);
         break;
+      case '0 - 100 000 рублей':
+        setProgress(25);
+        break;
       case '100 000 - 200 000 рублей':
-        setProgress(25)
+        setProgress(50)
         break;
       case '200 000 - 300 000 рублей':
-        setProgress(50);
-        break;
-      case 'Свыше 300 000 рублей':
         setProgress(75);
         break;
-      case 'Я начинающий предприниматель':
+      case 'Свыше 300 000 рублей':
         setProgress(100);
         break;
       default:

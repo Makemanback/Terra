@@ -1,10 +1,18 @@
-import React from 'react';
-
+import React, {useState} from 'react';
 import './leader.scss';
+import ModalVideo from 'react-modal-video'
 
 const Leader = ({setMentor, mentor}) => {
+  const [isOpen, setOpen] = useState(false)
 
   const {ID, fullName, photoURL, employes, videoURL} = mentor;
+  
+  const videoId = videoURL.split('v=')[1];
+  const ampersandPosition = videoId.indexOf('&');
+
+  if (ampersandPosition != -1) {
+    videoId = videoId.substring(0, ampersandPosition);
+  }
 
   return (
     <label 
@@ -27,9 +35,10 @@ const Leader = ({setMentor, mentor}) => {
            />
         <span className="leader__border"></span>
         <span className="leader__name">{fullName}</span>
-        <span>
+        <span className="leader__presentation">
         Презентация наставника: 
-        <a href={videoURL} className="leader__video" target="_blank" rel="noreferrer">Посмотреть презентацию</a>
+        <ModalVideo channel='youtube' isOpen={isOpen} videoId={videoId} onClose={() => setOpen(false)} />
+        <button type="button" className="leader__video" onClick={()=> setOpen(true)}>Посмотреть презентацию</button>
         </span>
         {
           employes.map(({name, id}) => {

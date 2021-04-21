@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import LoadingScreen from '../loading-screen/loading-screen'
 
 import './telegram-screen.scss';
+import ErrorScreen from '../error-screen/error-screen';
 
 const TelegramScreen = () => {
   
@@ -13,12 +14,18 @@ const TelegramScreen = () => {
   const tgBotLink = `https://t.me/T800CBRDev_bot`;
 
   const code = useSelector(({LEADERS}) => LEADERS.code);
+  const errorMessage = useSelector(({LEADERS}) => LEADERS.errorMessage);
+
+  if (errorMessage) {
+    return <ErrorScreen />
+  }
 
   if (!code) {
     return (
       <LoadingScreen />
     );
   }
+
 
   return (
     <div className="telegram">

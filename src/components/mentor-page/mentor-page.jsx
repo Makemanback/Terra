@@ -16,13 +16,13 @@ const MentorPage = () => {
 
   const students = useSelector(({LEADERS}) => LEADERS.students);
   const authorizationStatus = useSelector(({LEADERS}) => LEADERS.authorizationStatus);
-
-  let mentorId = 35;
+  const token = useSelector(({LEADERS}) => LEADERS.token);
 
   useEffect(() => {
-    const URL = `${BASE_URL}/mentor/fetch_registrations`
+    const URL = `${BASE_URL}/mentor/fetch_registrations`;
+
     if (!students) {
-      axios.get(URL)
+      axios.get(URL, { 'headers': { 'Authorization': token } })
         .then(({data}) => dispatch(fetchStudents(data)))
     }
   });
@@ -31,8 +31,8 @@ const MentorPage = () => {
     return <Redirect to={Path.AUTHORIZATION} />;
   }
 
-  if (!students) {
-    return <LoadingScreen />
+  if (!students || !token) {
+    return <span >К вам никто не записался</span>
   }
 
   return (
@@ -42,7 +42,7 @@ const MentorPage = () => {
         {
           students.map((student) => {
             return <Student
-              mentorId={mentorId} 
+              token={token} 
               key={student.userID} 
               student={student} />
           })

@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 
-import {fetchMentors, getTelegramCode} from '../../store/actions';
+import {fetchMentors, getErrorMessage, getTelegramCode} from '../../store/actions';
 import {BASE_URL, DirectionTypeId, Income, EducationTypeId} from '../../const';
 import ButtonsBlock from '../buttons-block/buttons-block';
 import FirstPage from '../first-page/first-page';
 import Leaders from '../leaders/leaders';
 import Final from '../final/final';
-import TelegramScreen from '../telegram-screen/telegram-screeen';
+import TelegramScreen from '../telegram-screen/telegram-screen';
+import ErrorScreen from '../error-screen/error-screen';
 
 const Form = () => {
 
@@ -172,6 +173,8 @@ const Form = () => {
 
   }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef])
 
+  const scrollPage = () => window.scroll(0, 0);
+
   const handleNextPage = () => {
 
     if (activePage.type.name === 'Leaders') {
@@ -182,8 +185,11 @@ const Form = () => {
         setNextShow(false)
       )
     }
-
-    return setPage(<Leaders mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />) 
+    
+    return (
+      setPage(<Leaders mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />),
+      setTimeout(scrollPage, 0)
+    )
   }
   
 
@@ -223,7 +229,7 @@ const Form = () => {
     evt.preventDefault();
     axios
       .post(`${BASE_URL}/user/register`, data)
-      .then(({data}) => dispatch(getTelegramCode(data.tgVerifyCode)))
+      .then(({data}) => data.message ? dispatch(getErrorMessage(data.message)) : dispatch(getTelegramCode(data.tgVerifyCode)))
       .then(() => setButtonsBlock(false))
       .then(() => setPage(<TelegramScreen />))
   };

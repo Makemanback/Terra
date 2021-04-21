@@ -30,8 +30,9 @@ const MentorAuth = () => {
 
 
     evt.preventDefault();
-    dispatch(apiService.login(data))
-    .catch(() => setErrorBlock(true));
+    dispatch(
+      apiService.login(data))
+        .catch(() => setErrorBlock(true));
   }
 
   return (
@@ -41,7 +42,8 @@ const MentorAuth = () => {
       <h3 className="auth__header">Форма входа для наставника</h3>
       <label className="auth__label">
         <span className="auth__label-text">Введите логин</span>
-        <input 
+        <input
+        autoComplete="username" 
         className="auth__input"
         onInput={({target}) => setUsername(target.value)}
         type="login"/>
@@ -49,6 +51,7 @@ const MentorAuth = () => {
       <label className="auth__label">
       <span className="auth__label-text">Введите пароль</span>
         <input
+          autoComplete="password"
           className="auth__input" 
           onInput={({target}) => setPassword(target.value)}
           type="password"/>

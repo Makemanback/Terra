@@ -6,7 +6,7 @@ import {BASE_URL} from '../../const';
 import './student.scss';
 import UserSelect from '../user-select/user-select';
 
-const Student = ({student, mentorId}) => {
+const Student = ({student, token}) => {
   
   const {
     fullName, 
@@ -37,7 +37,7 @@ const Student = ({student, mentorId}) => {
     setStateless(0);
     
     axios
-      .post(`${BASE_URL}/mentor/update_registration_state`, data, { 'headers': { 'mentor_id': mentorId } })
+      .post(`${BASE_URL}/mentor/update_registration_state`, data, { 'headers': { 'Authorization': token } })
   }
 
   const handleOptionChange = (target) => {

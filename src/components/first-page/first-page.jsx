@@ -42,7 +42,7 @@ const FirstPage = ({
       <IncomeRadioContainer onRadioChange={setUserIncome} title={'Ваш ежемесячный чистый доход от вашего проекта?'} listData={incomeData} /> 
       
       <SimpleRadioContainer onRadioChange={setUserEducationType} title={'Как вы планируете проходить наставничество?'} listData={formatData} />
-      {userIncome === 'more than 300000' ? <DirectionRadioContainer directionRef={directionRef} onRadioChange={setUserDirectionType} title={'Ваш статус:'} listData={statusData} /> : null}
+      {userIncome === 'more than 300000' ? <DirectionRadioContainer directionRef={directionRef} onRadioChange={setUserDirectionType} title={'Выберите уровень наставника:'} listData={statusData} /> : null}
     </>
   )
 };

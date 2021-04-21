@@ -70,7 +70,7 @@
 }
 
 .form__radio-progress--income {
-  top: 67px;
+  top: 61px;
   left: 0;
   right: 0;
   margin-right: auto;
@@ -78,8 +78,7 @@
 
   @media (min-width: 1024px) {
     width: 510px;
-    left: -33px;
-    top: 77px;
+    left: 0;
   }
 }
 
@@ -110,14 +109,14 @@
   }
 
   &::after {
-    top: 40px !important;
-    left: -12px;
+    top: 12px !important;
+    left: 0 !important;
     right: 0;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: auto !important;
 
     @media (min-width: 1024px) {
-      top: 80px !important;
+      top: 37px !important;
     }
   }
 }

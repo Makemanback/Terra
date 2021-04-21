@@ -25,10 +25,15 @@
   }
 
   .form__radio-progress--income {
-    top: 20px;
-    left: 101%;
+    left: 93%;
+
+    top: 29px;
     width: 8px;
-    height: 80%;
+    height: 86%;
+
+    @media (min-width: 380px) {
+      left: 104%;
+    }
   }
 }
 
@@ -54,21 +59,28 @@
   display: block;
   cursor: pointer; 
   height: 50px;
+  max-width: 270px;
   
+  @media (max-width: 1023px) {
+    &:first-of-type::after {
+      top: -20px;
+    }
+  }
 
   @media (min-width: 1024px) {
     height: auto;
     margin-bottom: 30px;
+    font-size: 16px;
+    text-align: center;
   }
 }
 
 .rating__label::after {
-  position: absolute;
+  position: relative;
   content: '';
   display: block;
-  width: 20px;
-  height: 20px;
-  right: -18px;
+  width: 23px;
+  height: 23px;
   color: white;
   border-radius: 50%;
   border: #299DC6 2px solid;
@@ -76,13 +88,19 @@
 
   margin-top: auto;
   margin-bottom: auto;
+  margin-left: auto;
   top: 0;
   bottom: 0;
 
   z-index: 5;
 
+  @media (min-width: 380px) {
+    margin-left: 0;
+    left: 275px;
+  }
+
   @media (min-width: 1024px) {
-    top: 110px;
+    top: 13px;
     left: 0;
     right: 0;
     margin-right: auto;
@@ -91,6 +109,8 @@
 }
 
 .radio__inner {
+  position: relative;
+
   @media (min-width: 1024px) {
     grid-column: 1 / -1;
     display: grid;

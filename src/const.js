@@ -29,6 +29,11 @@ export const repeationData = [
 export const incomeData = [
   {
     name: 'income',
+    value: 'newcomer',
+    description: 'Я начинающий предприниматель'
+  },
+  {
+    name: 'income',
     value: '0-100000',
     description: '0 - 100 000 рублей'
   },
@@ -46,12 +51,7 @@ export const incomeData = [
     name: 'income',
     value: 'more than 300000',
     description: 'Свыше 300 000 рублей'
-  },
-  {
-    name: 'income',
-    value: 'newcomer',
-    description: 'Я начинающий предприниматель'
-  },
+  }
 ];
 
 export const formatData = [
@@ -114,4 +114,4 @@ export const Income = {
 }
 
 export const BASE_URL = `http://94.130.230.165:8079`;
-// export const BASE_URL = `https://fda58e967faf.ngrok.io`;
+// export const BASE_URL = `https://b3e21a2180f4.ngrok.io`;

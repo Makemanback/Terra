@@ -1,3 +1,5 @@
+@import 'node_modules/react-modal-video/scss/modal-video.scss';
+
 .leader {
   position: relative;
   display: grid;
@@ -29,6 +31,7 @@
 
 .leader__name {
   position: relative;
+  padding: 5px;
 }
 
 .leader__border {
@@ -82,6 +85,19 @@
 
 .leader__text {
   position: relative;
+  width: auto;
+  max-width: 200px;
+  font-size: 14px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+
+  @media (min-width: 600px) {
+    max-width: auto;
+  }
+
+  @media (min-width: 600px) {
+    font-size: 17px;
+  }
 
   &:first-child()::after {
     position: absolute;
@@ -99,5 +115,25 @@
 
 .leader__video {
   position: relative;
+  background: transparent;
+  border: 1px solid #299DC6;
+  border-radius: 5px;
+  color: #299DC6;
+  margin-left: 10px;
+  margin-top: 5px;
+
+  cursor: pointer;
   z-index: 20;
+}
+
+.leader__presentation {
+  max-width: 200px;
+  width: auto;
+  font-size: 15px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+
+  @media (min-width: 600px) {
+    max-width: auto;
+  }
 }

@@ -9,12 +9,15 @@ import './phone.scss';
 const Phone = ({onInputChange}) => {
 
   const [countryCode, setCountry] = useState('');
+  const [phoneNumber, setNumber] = useState(null);
 
   const getGeoInfo = () => {
     axios.get('https://ipapi.co/json/').then((response) => {
         let data = response.data;
         setCountry(data.country_code)
-    }).catch((error) => {
+    })
+    .then(() => setNumber(localStorage.getItem(`phone`)))
+    .catch((error) => {
         console.log(error);
     });
   };
@@ -22,7 +25,14 @@ const Phone = ({onInputChange}) => {
   useEffect(() => {
     getGeoInfo()
   }, [countryCode]);
+
   
+  const setPhoneNumber = (number) => {
+    return (
+      localStorage.setItem(`phone`, number),
+      onInputChange(number)
+    )
+  };
 
   return (
   <div className="container__inner">
@@ -30,7 +40,9 @@ const Phone = ({onInputChange}) => {
       <span className="form__label-text">Телефон:</span>
       <PhoneInput
         className="phone__input"
-        onChange={(number) => onInputChange(number)}
+        value={phoneNumber}
+        placeholder={`00000000`}
+        onChange={(number) => setPhoneNumber(number)}
         country={countryCode.toLowerCase()}
       />
     </label>

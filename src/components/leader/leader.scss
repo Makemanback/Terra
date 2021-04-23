@@ -8,7 +8,7 @@
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 20px;
-  border: 2px solid rgba($color: #000000, $alpha: 0.5);
+  border: 2px solid transparent;
   border-radius: 5px;
   background-color: #fff;
 
@@ -40,6 +40,7 @@
   width: 100%;
   height: 100%;
   left: 0;
+  border-radius: 5px;
 }
 
 .leader {
@@ -47,7 +48,11 @@
   margin-bottom: 15px;
 
   &:hover {
-    outline: 2px solid black;
+    border: 2px solid #299DC6;
+  }
+
+  &:checked {
+    border: 2px solid #299DC6;
   }
 
 
@@ -136,4 +141,30 @@
   @media (min-width: 600px) {
     max-width: auto;
   }
+}
+
+.leader__button {
+  width: 200px;
+  position: relative;
+  z-index: 30;
+  margin-left: 0;
+  margin-bottom: 15px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #299DC6;
+    color: white;
+  }
+}
+
+.leader__chose {
+  background-color: white;
+  color: #299DC6;
+}
+
+.leader__active {
+  background-color: #299DC6;
+  color: white;
+  z-index: 30;
 }

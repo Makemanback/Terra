@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {Redirect} from 'react-router-dom';
-
-import {Path, AuthorizationStatus} from '../../const';
+import axios from "axios";
+import { requireAuthorization } from '../../store/actions';
+import {Path, AuthorizationStatus, BASE_URL} from '../../const';
 
 import './mentor-auth.scss';
 import ApiService from '../../store/api-actions';
+import Spinner from '../spinner/spinner';
 
 const apiService = new ApiService();
 
@@ -15,8 +17,24 @@ const MentorAuth = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
   const [errorBlock, setErrorBlock] = useState(false);
+  const [spinner, setSpinner] = useState(true);
 
   const authorizationStatus = useSelector(({LEADERS}) => LEADERS.authorizationStatus);
+
+
+  useEffect(() => {
+    const URL = `${BASE_URL}/mentor/check_auth`;
+    const token = localStorage.getItem(`token`);
+
+    axios.get(URL, { 'headers': { 'Authorization': token } })
+      .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+      .then(() => setSpinner(false))
+      .catch(() => setSpinner(false))
+  });
+
+  if (spinner) {
+    return <Spinner />
+  }
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return <Redirect to={Path.MENTOR} />;

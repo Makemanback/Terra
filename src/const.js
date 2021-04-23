@@ -1,28 +1,28 @@
 export const repeationData = [
   {
     name: 'repeation',
+    value: 0,
+    description: `0`
+  },
+  {
+    name: 'repeation',
     value: 1,
-    description: 1
+    description: `1`
   },
   {
     name: 'repeation',
     value: 2,
-    description: 2
+    description: `2`
   },
   {
     name: 'repeation',
     value: 3,
-    description: 3
+    description: `3`
   },
   {
     name: 'repeation',
     value: 4,
-    description: 4
-  },
-  {
-    name: 'repeation',
-    value: 5,
-    description: 5
+    description: `4+`
   },
 ];
 
@@ -30,27 +30,32 @@ export const incomeData = [
   {
     name: 'income',
     value: 'newcomer',
-    description: 'Я начинающий предприниматель'
+    description: 'Я начинающий предприниматель',
+    id: 1
   },
   {
     name: 'income',
     value: '0-100000',
-    description: '0 - 100 000 рублей'
+    description: '0 - 100 000 рублей',
+    id: 2
   },
   {
     name: 'income',
     value: '100000-200000',
-    description: '100 000 - 200 000 рублей'
+    description: '100 000 - 200 000 рублей',
+    id: 3
   },
   {
     name: 'income',
     value: '200000-300000',
-    description: '200 000 - 300 000 рублей'
+    description: '200 000 - 300 000 рублей',
+    id: 4
   },
   {
     name: 'income',
     value: 'more than 300000',
-    description: 'Свыше 300 000 рублей'
+    description: 'Свыше 300 000 рублей',
+    id: 5
   }
 ];
 
@@ -113,5 +118,6 @@ export const Income = {
   LESS_300000: '299'
 }
 
-export const BASE_URL = `http://94.130.230.165:8079`;
-// export const BASE_URL = `https://b3e21a2180f4.ngrok.io`;
+export const BASE_URL = `http://94.130.230.165:8088`;
+
+// export const BASE_URL = `https://1624b219e24c.ngrok.io`;

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const SimpleRadioButton = ({value, name, description, id, onRadioChange}) => {
+const SimpleRadioButton = ({value, name, description, id, onRadioChange, handleActiveRadio, userDirectionType}) => {
   return (
     <label className="form__radio-button">
       <input
+        onChange={({target}) => handleActiveRadio(target.id)}
         onInput={({target}) => onRadioChange(target.id)}
         id={id}
         type="radio" 
         name={name} 
         className="radio" 
         value={value} 
+        checked={id == userDirectionType ? true : null }
         required />
       <span
         className="form__radio-text form__radio-text--simple form__direction-button"> {description}</span>
@@ -17,7 +19,20 @@ const SimpleRadioButton = ({value, name, description, id, onRadioChange}) => {
   )
 }
 
-const DirectionRadioContainer = ({listData, title, onRadioChange, directionRef}) => {
+const DirectionRadioContainer = ({listData, title, onRadioChange, directionRef, userDirectionType}) => {
+  const [isActive, setActive] = useState(null);
+
+  const handleActiveRadio = (target) => {
+    onRadioChange(target.value)
+
+    if (userDirectionType == target.id) {
+      return (
+        setActive(true)
+        )
+    }
+    return setActive(null)
+  };
+
 
   return (
   <div
@@ -35,7 +50,10 @@ const DirectionRadioContainer = ({listData, title, onRadioChange, directionRef})
               id={id} 
               name={name} 
               description={description}
-              onRadioChange={onRadioChange} />
+              onRadioChange={onRadioChange}
+              userDirectionType={userDirectionType}
+              handleActiveRadio={handleActiveRadio}
+              isActive={isActive} />
           )
         })
       }

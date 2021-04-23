@@ -6,7 +6,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import './leaders.scss';
 
 
-const Leaders = ({setMentor, mentors, mentorId}) => {
+const Leaders = ({setMentor, mentors, mentorId, handleMentorChoice}) => {
 
   const [mentorsList, setList] = useState(mentors);
 
@@ -60,7 +60,12 @@ const Leaders = ({setMentor, mentors, mentorId}) => {
       {
         mentorsList.map((mentor) => {
           return (
-            <Leader mentorId={mentorId} key={mentor.ID} setMentor={setMentor} mentor={mentor} />
+            <Leader 
+              key={mentor.ID} 
+              handleMentorChoice={handleMentorChoice} 
+              mentorId={mentorId} 
+              setMentor={setMentor} 
+              mentor={mentor} />
           )
         })
       }

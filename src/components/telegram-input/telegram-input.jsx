@@ -2,21 +2,22 @@ import React from 'react';
 
 import './telegram-input.scss';
 
-const TelegramInput = ({title, placeholder, type, onInputChange}) => {
+const TelegramInput = ({title, placeholder, type, onInputChange, userTelegram}) => {
 
   return (
-  <div className="container__inner">
-    <label className="form__label">
-      <span className="form__label-text">{title}:</span>
-      <input
-        onChange={(evt) => onInputChange(evt.target.value)}
-        type={type} 
-        className="input input__name input__telegram" 
-        placeholder={placeholder} 
-        required />
-      <span className="input__telegram-at">@</span>
-    </label>
-  </div>
+    <div className="container__inner">
+      <label className="form__label">
+        <span className="form__label-text">{title}:</span>
+        <input
+          onChange={(evt) => onInputChange(evt.target.value)}
+          type={type} 
+          className="input input__name input__telegram" 
+          placeholder={placeholder} 
+          value={userTelegram}
+          required />
+        <span className="input__telegram-at">@</span>
+      </label>
+    </div>
   )
 }
 

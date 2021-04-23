@@ -6,7 +6,6 @@ import {Redirect} from 'react-router-dom';
 import { fetchStudents } from '../../store/actions';
 import {BASE_URL, Path, AuthorizationStatus} from '../../const';
 
-import LoadingScreen from '../loading-screen/loading-screen';
 import Student from '../student/student';
 
 import './mentor-page.scss';
@@ -16,10 +15,11 @@ const MentorPage = () => {
 
   const students = useSelector(({LEADERS}) => LEADERS.students);
   const authorizationStatus = useSelector(({LEADERS}) => LEADERS.authorizationStatus);
-  const token = useSelector(({LEADERS}) => LEADERS.token);
 
+  const token = localStorage.getItem(`token`);
   useEffect(() => {
     const URL = `${BASE_URL}/mentor/fetch_registrations`;
+    const token = localStorage.getItem(`token`);
 
     if (!students) {
       axios.get(URL, { 'headers': { 'Authorization': token } })
@@ -38,7 +38,7 @@ const MentorPage = () => {
   return (
     <div className="mentor">
       <ul className="students-list">
-        <h2>Список студентов</h2>
+        <h2>Список участников</h2>
         {
           students.map((student) => {
             return <Student

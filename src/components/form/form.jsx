@@ -9,7 +9,6 @@ import FirstPage from '../first-page/first-page';
 import Leaders from '../leaders/leaders';
 import Final from '../final/final';
 import TelegramScreen from '../telegram-screen/telegram-screen';
-import ErrorScreen from '../error-screen/error-screen';
 
 const Form = () => {
 
@@ -23,9 +22,9 @@ const Form = () => {
   const [userBusiness, setUserBusiness] = useState('');
   const [userTelegram, setUserTelegram] = useState('');
   const [userPhone, setUserPhone] = useState('');
-  const [userMentoringCount, setUserMentoringCount] = useState(null);
-  const [userIncome, setUserIncome] = useState(null);
-  const [userEducationType, setUserEducationType] = useState(null);
+  const [userMentoringCount, setUserMentoringCount] = useState('0');
+  const [userIncome, setUserIncome] = useState(1);
+  const [userEducationType, setUserEducationType] = useState(1);
   const [userDirectionType, setUserDirectionType] = useState(null);
 
   const [mentorId, setMentorId] = useState(null);
@@ -36,7 +35,6 @@ const Form = () => {
   
   const firstPage = <FirstPage
   directionRef={directionRef}
-  userIncome={userIncome} 
   setUserName={setUserName}
   setUserSurname={setUserSurname}
   setUserLastname={setUserLastname}
@@ -47,7 +45,20 @@ const Form = () => {
   setUserMentoringCount={setUserMentoringCount}
   setUserIncome={setUserIncome}
   setUserEducationType={setUserEducationType}
-  setUserDirectionType={setUserDirectionType} />
+  setUserDirectionType={setUserDirectionType}
+  
+  userName={userName}
+  userSurname={userSurname}
+  userLastname={userLastname}
+  userEmail={userEmail}
+  userBusiness={userBusiness}
+  userTelegram={userTelegram}
+  userPhone={userPhone}
+  userMentoringCount={userMentoringCount}
+  userIncome={userIncome}
+  userEducationType={userEducationType}
+  userDirectionType={userDirectionType}
+  />
 
   const [activePage, setPage] = useState(firstPage)
 
@@ -55,6 +66,7 @@ const Form = () => {
   const [isNextShowed, setNextShow] = useState(true);
   const [isSubmitDisabled, setSubmitButton] = useState(true);
   const [mentorsList, setMentorsList] = useState(null);
+  const [isReturnDisabled, setReturnDisabled] = useState(true); 
 
   useEffect(() => {
     if (!mentors) {
@@ -177,19 +189,38 @@ const Form = () => {
 
   const handleNextPage = () => {
 
-    if (activePage.type.name === 'Leaders') {
-      return (
-        setPage(<Final />),
-        setSubmitButton(false),
-        setNextButton(true),
-        setNextShow(false)
-      )
-    }
-    
     return (
-      setPage(<Leaders mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />),
+      setPage(<Leaders handleMentorChoice={handleMentorChoice} mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />),
+      setNextButton(false),
+      setNextShow(false),
+      setReturnDisabled(false),
       setTimeout(scrollPage, 0)
     )
+  };
+
+  const handleMentorChoice = () => {
+    return (
+      setPage(<Final />),
+      setSubmitButton(false)
+    )
+  };
+
+  const handlePreviousPage = () => {
+    if (activePage.type.name === 'Leaders') {
+      return (
+        setPage(firstPage),
+        setReturnDisabled(true),
+        setNextButton(true),
+        setNextShow(true),
+        setSubmitButton(true)
+      )
+    } else {
+      return (
+        setPage(<Leaders handleMentorChoice={handleMentorChoice} mentorId={mentorId} setMentor={setMentorId} mentors={mentorsList} />),
+        setReturnDisabled(false),
+        setSubmitButton(true)
+      )
+    }
   }
   
 
@@ -225,7 +256,7 @@ const Form = () => {
       directionTypeID: getDirectionTypeId(),
       mentorID: +mentorId
     };
-
+    console.log(userPhone)
     evt.preventDefault();
     axios
       .post(`${BASE_URL}/user/register`, data)
@@ -246,7 +277,9 @@ const Form = () => {
           isNextShowed={isNextShowed}
           isNextDisabled={isNextDisabled} 
           isSubmitDisabled={isSubmitDisabled} 
-          handleNextPage={handleNextPage} />
+          handleNextPage={handleNextPage}
+          isReturnDisabled={isReturnDisabled}
+          handlePreviousPage={handlePreviousPage} />
       : null
     }
       

@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './income-radio-container.scss';
 
 const RadioButton = ({
-  value, 
+  value,
   description, 
   handleRadio, 
-  onRadioChange}) => {
+  handleActiveRadio,
+  userIncome}) => {
 
   return (
     <>
     <input
-        onInput={({target}) => onRadioChange(target.value)}
-        onChange={({target}) => handleRadio(target)} 
+        onChange={({target}) => handleActiveRadio(target)}
+        onInput={({target}) => handleRadio(target)} 
         className="rating__input"
         id={value}
         type="radio"
         name="income"
         value={value}
+        checked={value == userIncome ? true : null }
         />
       <label
         className="rating__label"
@@ -28,27 +30,13 @@ const RadioButton = ({
   )
 }
 
-const IncomeRadioContainer = ({listData, title, onRadioChange}) => {
+const IncomeRadioContainer = ({listData, title, onRadioChange, userIncome}) => {
   const [progressBar, setProgress] = useState(0);
+  const [isActive, setActive] = useState(null);
 
   const handleRadio = (target) => {
-    
-    switch (target.value || target.innerText) {
-      case '1':
-        return setProgress(0)
-      case '2':
-        return setProgress(25)
-      case '3':
-        return setProgress(50)
-      case '4':
-        return setProgress(75)
-      case '5':
-        return setProgress(100)
-      default:
-        break;
-    }
 
-    switch (target.value) {
+    switch (target || target.value) {
       case 'newcomer':
         setProgress(0);
         break;
@@ -89,16 +77,40 @@ const IncomeRadioContainer = ({listData, title, onRadioChange}) => {
     }
   };
 
-  const isChecked = true;
+  const handleActiveRadio = (target) => {
+    onRadioChange(target.id)
+
+    if (userIncome == target.id) {
+      return (
+        setActive(true)
+        )
+    }
+    return setActive(null)
+  }
+
+  useEffect(() => {
+    handleRadio(userIncome)
+  })
+
   return (
   <div className="container__inner form__radio-container">
     <h3 className="radio__header">{title}</h3>
     <div className="radio__wrapper radio__wrapper--income">
       <div className="radio__inner">
       {
-        listData.map(({value, description}) => {
+        listData.map(({value, description, id}) => {
           return (
-            <RadioButton isChecked={isChecked} key={value} listData={listData} onRadioChange={onRadioChange} handleRadio={handleRadio} value={value} description={description} />
+            <RadioButton
+              userIncome={userIncome}
+              handleActiveRadio={handleActiveRadio}
+              key={value} 
+              listData={listData} 
+              onRadioChange={onRadioChange} 
+              handleRadio={handleRadio} 
+              value={value} 
+              description={description}
+              id={id}
+              isActive={isActive} />
           )
         })
       }

@@ -2,22 +2,44 @@ import React, {useState} from 'react';
 import './leader.scss';
 import ModalVideo from 'react-modal-video'
 
-const Leader = ({setMentor, mentor}) => {
-  const [isOpen, setOpen] = useState(false)
-
+const Leader = ({setMentor, mentor, handleMentorChoice}) => {
+  const [isOpen, setOpen] = useState(false);
+  const [isChosen, setChoose] = useState(false);
+  
   const {ID, fullName, photoURL, employes, videoURL} = mentor;
   
-  const videoId = videoURL.split('v=')[1];
+  let videoId = videoURL.split('v=')[1];
   const ampersandPosition = videoId.indexOf('&');
 
   if (ampersandPosition != -1) {
     videoId = videoId.substring(0, ampersandPosition);
   }
 
+  const choseMentorHandler = (target) => {
+    return (
+      setMentor(target.id),
+      setChoose(true)
+    )
+  }
+
+  const setButton = () => {
+    if (isChosen) {
+      return (
+      <button
+          onClick={() => handleMentorChoice()} 
+          type="button" 
+          className="button leader__button"
+        >
+          Выбрать наставника
+      </button>
+      )
+    } else {
+      return null
+    }
+  }
+
   return (
-    <label 
-    className="leader"
-    >
+    <label className="leader">
       <img 
         className="leader__img" 
         src={photoURL} 
@@ -27,7 +49,7 @@ const Leader = ({setMentor, mentor}) => {
       <div className="leader__wrapper">
         <input
           id={ID}
-          onInput={({target}) => setMentor(target.id)}
+          onInput={({target}) => choseMentorHandler(target)}
           type="radio" 
           name="start-leader" 
           className="radio leader__radio" 
@@ -45,6 +67,8 @@ const Leader = ({setMentor, mentor}) => {
             return <span key={id} className="leader__text">Ниша: {name}</span>
           })
         }
+
+        {setButton()}
         
       </div>
     </label>

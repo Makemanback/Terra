@@ -6,7 +6,7 @@ import 'react-phone-input-2/lib/style.css'
 
 import './phone.scss';
 
-const Phone = ({onInputChange}) => {
+const Phone = ({onInputChange, userPhone}) => {
 
   const [countryCode, setCountry] = useState('');
   const [phoneNumber, setNumber] = useState(null);
@@ -26,8 +26,13 @@ const Phone = ({onInputChange}) => {
     getGeoInfo()
   }, [countryCode]);
 
+  useEffect(() => {
+    onInputChange(localStorage.getItem(`phone`))
+  });
+
   
   const setPhoneNumber = (number) => {
+    console.log(userPhone)
     return (
       localStorage.setItem(`phone`, number),
       onInputChange(number)
@@ -41,7 +46,6 @@ const Phone = ({onInputChange}) => {
       <PhoneInput
         className="phone__input"
         value={phoneNumber}
-        placeholder={`00000000`}
         onChange={(number) => setPhoneNumber(number)}
         country={countryCode.toLowerCase()}
       />

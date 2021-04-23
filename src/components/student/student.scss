@@ -19,6 +19,9 @@
 
 .student__description {
   padding-bottom: 10px;
+  hyphens: auto;
+  max-width: 250px;
+  overflow-x: scroll;
 }
 
 .student-select {

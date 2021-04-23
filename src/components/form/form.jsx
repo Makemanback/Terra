@@ -182,7 +182,7 @@ const Form = () => {
         }
       }
     }
-
+    
   }, [userEducationType, userDirectionType, userName, userSurname, userLastname, userEmail, userBusiness, userMentoringCount, userPhone, userTelegram, userIncome, directionRef])
 
   const scrollPage = () => window.scroll(0, 0);
@@ -210,7 +210,7 @@ const Form = () => {
       return (
         setPage(firstPage),
         setReturnDisabled(true),
-        setNextButton(true),
+        setNextButton(false),
         setNextShow(true),
         setSubmitButton(true)
       )
@@ -256,7 +256,7 @@ const Form = () => {
       directionTypeID: getDirectionTypeId(),
       mentorID: +mentorId
     };
-    console.log(userPhone)
+
     evt.preventDefault();
     axios
       .post(`${BASE_URL}/user/register`, data)

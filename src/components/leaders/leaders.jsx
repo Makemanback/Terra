@@ -12,7 +12,9 @@ const Leaders = ({setMentor, mentors, mentorId, handleMentorChoice}) => {
 
   if (!mentors) {
     return (
-      <LoadingScreen />
+      <div className="container__inner">
+        <div className="leaders__empty">Всех разобрали или по вашим параметрам никого нет (как говорится: кто не успел - тот опоздал)</div>
+      </div>
     );
   }
 

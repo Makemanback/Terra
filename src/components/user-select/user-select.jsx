@@ -21,8 +21,8 @@ const UserSelect = ({handleSubmitStudent, handleOptionChange}) => {
     </option>
     <option
       id="2" 
-      value="Подтвержден">
-        Подтвержден
+      value="Беру в группу">
+        Беру в группу
     </option>
     <option 
       id="4" 
